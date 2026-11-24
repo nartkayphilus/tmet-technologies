@@ -1,2456 +1,1506 @@
 
 /* =====================================================
-   T-MET TECHNOLOGIES
-   PROFESSIONAL WEBSITE DESIGN
-   VERSION 1.0
-   ===================================================== */
+   TMET TECHNOLOGIES
+   ADVANCED ONLINE STORE JAVASCRIPT
+   Version 2.0
+===================================================== */
 
 
 /* =====================================================
-   1. GLOBAL DESIGN VARIABLES
-   ===================================================== */
+   1. BUSINESS CONFIGURATION
+===================================================== */
 
-:root {
+// Enter your WhatsApp business number here later.
+// Use the international format without + or spaces.
+// Example format for Ghana: 233XXXXXXXXX
 
-    --primary: #071426;
-    --primary-light: #0d2039;
-    --secondary: #102947;
-
-    --accent: #2585ff;
-    --accent-light: #56a4ff;
-    --accent-dark: #1265cf;
-
-    --white: #ffffff;
-    --text: #e8eff8;
-    --muted: #a7b5c8;
-
-    --card: #0d1c30;
-    --card-light: #142943;
-
-    --border: rgba(255, 255, 255, 0.10);
-
-    --success: #22c55e;
-
-    --shadow:
-        0 15px 45px rgba(0, 0, 0, 0.25);
-
-    --transition: 0.3s ease;
-
-    --container: 1200px;
-
-}
+const TMET_CONFIG = {
+    whatsappNumber: "",
+    currency: "GHS",
+    country: "GH"
+};
 
 
 /* =====================================================
-   2. RESET AND BASIC STYLING
-   ===================================================== */
+   2. PRODUCT DATABASE
+===================================================== */
 
-* {
+// Add products to this array whenever they become
+// available for sale.
+//
+// Every product should have:
+// id, name, category, price, description and image.
+//
+// Supported categories:
+// computers, phones, accessories, equipment, books, other
+//
+// Example product (keep commented until you have
+// a real product, price and image):
+//
+// {
+//     id: 1,
+//     name: "Laptop Computer",
+//     category: "computers",
+//     price: 3500,
+//     description: "Professional laptop computer.",
+//     image: "https://example.com/laptop.jpg"
+// }
 
-    margin: 0;
-    padding: 0;
-
-    box-sizing: border-box;
-
-}
-
-
-html {
-
-    scroll-behavior: smooth;
-
-    scroll-padding-top: 90px;
-
-}
-
-
-body {
-
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
-    background: var(--primary);
-
-    color: var(--text);
-
-    line-height: 1.7;
-
-    overflow-x: hidden;
-
-}
-
-
-body,
-button,
-input,
-textarea {
-
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
-}
-
-
-a {
-
-    text-decoration: none;
-
-    color: inherit;
-
-}
-
-
-button,
-input,
-textarea {
-
-    font: inherit;
-
-}
-
-
-button {
-
-    cursor: pointer;
-
-}
-
-
-img {
-
-    max-width: 100%;
-
-    display: block;
-
-}
-
-
-ul {
-
-    list-style: none;
-
-}
-
-
-::selection {
-
-    background: var(--accent);
-
-    color: var(--white);
-
-}
-
+const products = [];
 
 
 /* =====================================================
-   3. REUSABLE LAYOUT
-   ===================================================== */
+   3. GLOBAL ELEMENTS
+===================================================== */
 
-.container {
+document.addEventListener("DOMContentLoaded", function () {
 
-    width: 90%;
+    const menuToggle =
+        document.querySelector("#menu-toggle");
 
-    max-width: var(--container);
+    const navigation =
+        document.querySelector("#main-navigation");
 
-    margin: 0 auto;
+    const searchInput =
+        document.querySelector("#product-search-input");
 
-}
+    const searchButton =
+        document.querySelector("#search-focus-button");
 
+    const sortSelect =
+        document.querySelector("#product-sort");
 
-.section-padding {
+    const productGrid =
+        document.querySelector("#product-grid");
 
-    padding: 100px 0;
+    const filterButtons =
+        document.querySelectorAll(".filter-button");
 
-}
+    const categoryButtons =
+        document.querySelectorAll("[data-category-link]");
 
+    const cartOverlay =
+        document.querySelector("#cart-overlay");
 
-.section-heading {
+    const cartPanel =
+        document.querySelector("#cart-panel");
 
-    text-align: center;
+    const openCartButton =
+        document.querySelector("#open-cart");
 
-    max-width: 780px;
+    const closeCartButton =
+        document.querySelector("#close-cart");
 
-    margin: 0 auto 55px;
+    const cartItemsContainer =
+        document.querySelector("#cart-items");
 
-}
+    const cartCount =
+        document.querySelector("#cart-count");
 
+    const cartTotal =
+        document.querySelector("#cart-total");
 
-.section-heading h2 {
+    const checkoutButton =
+        document.querySelector("#checkout-button");
 
-    font-size: clamp(30px, 4vw, 44px);
+    const contactForm =
+        document.querySelector("#contact-form");
 
-    line-height: 1.2;
+    const newsletterForm =
+        document.querySelector("#newsletter-form");
 
-    margin: 15px 0;
+    const backToTop =
+        document.querySelector("#back-to-top");
 
-    color: var(--white);
+    const currentYear =
+        document.querySelector("#current-year");
 
-    font-weight: 800;
 
-}
+    /* =================================================
+       4. APPLICATION STATE
+    ================================================= */
 
+    let activeCategory = "all";
 
-.section-heading h2 span {
+    let searchTerm = "";
 
-    color: var(--accent);
+    let sortMethod = "default";
 
-}
+    let cart = loadCart();
 
 
-.section-heading p {
+    /* =================================================
+       5. GENERAL HELPER FUNCTIONS
+    ================================================= */
 
-    color: var(--muted);
+    function formatMoney(amount) {
 
-    font-size: 16px;
+        return new Intl.NumberFormat("en-GH", {
+            style: "currency",
+            currency: TMET_CONFIG.currency
+        }).format(amount);
 
-}
+    }
 
 
-.eyebrow {
+    function escapeHTML(value) {
 
-    display: inline-block;
+        return String(value).replace(
+            /[&<>"']/g,
+            function (character) {
 
-    color: var(--accent-light);
-
-    font-size: 12px;
-
-    font-weight: 800;
-
-    letter-spacing: 2px;
-
-}
-
-
-.text-link {
-
-    display: inline-block;
-
-    margin-top: 22px;
-
-    color: var(--accent-light);
-
-    font-weight: 700;
-
-    transition: var(--transition);
-
-}
-
-
-.text-link:hover {
-
-    color: var(--white);
-
-    transform: translateX(5px);
-
-}
-
-
-
-/* =====================================================
-   4. ACCESSIBILITY
-   ===================================================== */
-
-.skip-link {
-
-    position: absolute;
-
-    left: -9999px;
-
-    top: 10px;
-
-    z-index: 9999;
-
-    background: var(--accent);
-
-    color: white;
-
-    padding: 12px 20px;
-
-}
-
-
-.skip-link:focus {
-
-    left: 10px;
-
-}
-
-
-
-/* =====================================================
-   5. HEADER
-   ===================================================== */
-
-.site-header {
-
-    position: sticky;
-
-    top: 0;
-
-    z-index: 1000;
-
-    width: 100%;
-
-    background: rgba(7, 20, 38, 0.95);
-
-    backdrop-filter: blur(15px);
-
-    border-bottom: 1px solid var(--border);
-
-}
-
-
-.header-container {
-
-    min-height: 82px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    gap: 25px;
-
-}
-
-
-
-/* COMPANY BRAND */
-
-.brand {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 12px;
-
-    flex-shrink: 0;
-
-}
-
-
-.brand-symbol {
-
-    width: 46px;
-
-    height: 46px;
-
-    display: grid;
-
-    place-items: center;
-
-    background:
-        linear-gradient(
-            135deg,
-            var(--accent),
-            #0753b6
+                const entities = {
+                    "&": "&amp;",
+                    "<": "&lt;",
+                    ">": "&gt;",
+                    '"': "&quot;",
+                    "'": "&#39;"
+                };
+
+                return entities[character];
+
+            }
         );
 
-    border-radius: 12px;
+    }
 
-    color: white;
 
-    font-size: 25px;
+    function getProduct(productId) {
 
-    font-weight: 900;
+        return products.find(function (product) {
 
-    box-shadow:
-        0 5px 20px rgba(37, 133, 255, 0.25);
+            return String(product.id) === String(productId);
 
-}
+        });
 
+    }
 
-.brand-name {
 
-    display: flex;
+    function showFeedback(element, message, type) {
 
-    flex-direction: column;
+        if (!element) return;
 
-    color: white;
+        element.textContent = message;
 
-    font-size: 21px;
+        element.classList.remove("success", "error");
 
-    font-weight: 900;
+        if (type) {
+            element.classList.add(type);
+        }
 
-    line-height: 1.1;
+    }
 
-    letter-spacing: 1px;
 
-}
+    function isValidWhatsAppNumber() {
 
-
-.brand-name small {
-
-    color: var(--accent-light);
-
-    font-size: 9px;
-
-    letter-spacing: 3px;
-
-    margin-top: 5px;
-
-}
-
-
-
-/* NAVIGATION */
-
-.main-navigation {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 24px;
-
-}
-
-
-.main-navigation a {
-
-    color: var(--muted);
-
-    font-size: 13px;
-
-    font-weight: 600;
-
-    transition: var(--transition);
-
-}
-
-
-.main-navigation a:hover {
-
-    color: var(--accent-light);
-
-}
-
-
-.main-navigation .nav-contact {
-
-    background: var(--accent);
-
-    color: white;
-
-    padding: 11px 18px;
-
-    border-radius: 7px;
-
-}
-
-
-.main-navigation .nav-contact:hover {
-
-    background: var(--accent-dark);
-
-    color: white;
-
-}
-
-
-
-/* MOBILE MENU BUTTON */
-
-.menu-toggle {
-
-    display: none;
-
-    width: 43px;
-
-    height: 43px;
-
-    background: var(--card-light);
-
-    border: 1px solid var(--border);
-
-    border-radius: 8px;
-
-    flex-direction: column;
-
-    align-items: center;
-
-    justify-content: center;
-
-    gap: 5px;
-
-}
-
-
-.menu-toggle span {
-
-    display: block;
-
-    width: 21px;
-
-    height: 2px;
-
-    background: white;
-
-    border-radius: 5px;
-
-}
-
-
-
-/* =====================================================
-   6. HERO SECTION
-   ===================================================== */
-
-.hero-section {
-
-    position: relative;
-
-    overflow: hidden;
-
-    padding: 115px 0 120px;
-
-    background:
-        radial-gradient(
-            ellipse at 85% 40%,
-            rgba(37, 133, 255, 0.18),
-            transparent 45%
-        ),
-        linear-gradient(
-            135deg,
-            #071426,
-            #0a1c35
+        return /^\d{8,15}$/.test(
+            TMET_CONFIG.whatsappNumber
         );
 
-}
+    }
 
 
-.hero-container {
+    function sendWhatsAppMessage(message) {
 
-    display: grid;
+        if (!isValidWhatsAppNumber()) {
 
-    grid-template-columns: 1.1fr 0.9fr;
+            alert(
+                "The WhatsApp business number has not been configured yet. Please contact the store administrator."
+            );
 
-    align-items: center;
+            return false;
 
-    gap: 65px;
+        }
 
-}
+        const whatsappURL =
+            "https://wa.me/" +
+            TMET_CONFIG.whatsappNumber +
+            "?text=" +
+            encodeURIComponent(message);
 
+        window.location.href = whatsappURL;
 
-.hero-content h1 {
+        return true;
 
-    color: var(--white);
+    }
 
-    font-size: clamp(42px, 6vw, 68px);
 
-    line-height: 1.12;
+    /* =================================================
+       6. AUTOMATIC COPYRIGHT YEAR
+    ================================================= */
 
-    font-weight: 900;
+    if (currentYear) {
 
-    margin: 22px 0;
+        currentYear.textContent =
+            new Date().getFullYear();
 
-    letter-spacing: -2px;
+    }
 
-}
 
+    /* =================================================
+       7. MOBILE NAVIGATION
+    ================================================= */
 
-.hero-content h1 span {
+    if (menuToggle && navigation) {
 
-    display: block;
+        function closeNavigation() {
 
-    color: var(--accent);
+            navigation.classList.remove("active");
 
-}
+            menuToggle.setAttribute(
+                "aria-expanded",
+                "false"
+            );
 
+            menuToggle.setAttribute(
+                "aria-label",
+                "Open navigation menu"
+            );
 
-.hero-description {
+            document.body.classList.remove("menu-open");
 
-    max-width: 620px;
+        }
 
-    color: var(--muted);
 
-    font-size: 16px;
+        function toggleNavigation() {
 
-    margin-bottom: 30px;
+            const isOpen =
+                navigation.classList.toggle("active");
 
-}
+            menuToggle.setAttribute(
+                "aria-expanded",
+                String(isOpen)
+            );
 
+            menuToggle.setAttribute(
+                "aria-label",
+                isOpen
+                    ? "Close navigation menu"
+                    : "Open navigation menu"
+            );
 
-.hero-buttons {
+            document.body.classList.toggle(
+                "menu-open",
+                isOpen
+            );
 
-    display: flex;
+        }
 
-    flex-wrap: wrap;
 
-    gap: 15px;
-
-}
-
-
-.button {
-
-    display: inline-flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    min-height: 48px;
-
-    padding: 13px 23px;
-
-    border-radius: 7px;
-
-    font-size: 14px;
-
-    font-weight: 700;
-
-    border: 1px solid transparent;
-
-    transition: var(--transition);
-
-}
-
-
-.button-primary {
-
-    background: var(--accent);
-
-    color: white;
-
-    box-shadow:
-        0 7px 22px rgba(37, 133, 255, 0.20);
-
-}
-
-
-.button-primary:hover {
-
-    background: var(--accent-dark);
-
-    transform: translateY(-3px);
-
-    box-shadow:
-        0 10px 28px rgba(37, 133, 255, 0.35);
-
-}
-
-
-.button-outline {
-
-    border-color: rgba(255, 255, 255, 0.3);
-
-    color: white;
-
-}
-
-
-.button-outline:hover {
-
-    background: white;
-
-    color: var(--primary);
-
-    transform: translateY(-3px);
-
-}
-
-
-.hero-note {
-
-    margin-top: 28px;
-
-    color: var(--muted);
-
-    font-size: 12px;
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 10px;
-
-}
-
-
-.status-dot {
-
-    width: 8px;
-
-    height: 8px;
-
-    background: var(--success);
-
-    border-radius: 50%;
-
-    box-shadow:
-        0 0 12px rgba(34, 197, 94, 0.8);
-
-}
-
-
-
-/* =====================================================
-   7. HERO CODE VISUAL
-   ===================================================== */
-
-.hero-visual {
-
-    width: 100%;
-
-    position: relative;
-
-}
-
-
-.visual-card {
-
-    background:
-        linear-gradient(
-            145deg,
-            #132a46,
-            #09182a
+        menuToggle.addEventListener(
+            "click",
+            toggleNavigation
         );
 
-    border: 1px solid rgba(86, 164, 255, 0.25);
 
-    border-radius: 18px;
+        navigation.querySelectorAll("a").forEach(
+            function (link) {
 
-    padding: 25px;
+                link.addEventListener(
+                    "click",
+                    closeNavigation
+                );
 
-    box-shadow:
-        0 25px 65px rgba(0, 0, 0, 0.35);
-
-    transform: rotate(1deg);
-
-}
-
-
-.visual-top {
-
-    display: flex;
-
-    justify-content: space-between;
-
-    gap: 10px;
-
-    color: var(--muted);
-
-    font-size: 10px;
-
-    font-weight: 700;
-
-    letter-spacing: 1px;
-
-    padding-bottom: 18px;
-
-    border-bottom: 1px solid var(--border);
-
-}
-
-
-.visual-indicator {
-
-    color: var(--success);
-
-}
-
-
-.visual-code {
-
-    padding: 30px 5px;
-
-    font-family: monospace;
-
-    font-size: 14px;
-
-    line-height: 2;
-
-    color: #dce9ff;
-
-    overflow-x: auto;
-
-}
-
-
-.code-indent {
-
-    padding-left: 25px;
-
-}
-
-
-.code-purple {
-
-    color: #d49bff;
-
-}
-
-
-.code-green {
-
-    color: #6ee7a2;
-
-}
-
-
-.code-yellow {
-
-    color: #f6d365;
-
-}
-
-
-.code-blue {
-
-    color: #61b8ff;
-
-}
-
-
-.visual-bottom {
-
-    display: flex;
-
-    justify-content: space-between;
-
-    gap: 10px;
-
-    border-top: 1px solid var(--border);
-
-    padding-top: 18px;
-
-    color: var(--accent-light);
-
-    font-size: 10px;
-
-    font-weight: 800;
-
-    letter-spacing: 2px;
-
-}
-
-
-
-/* =====================================================
-   8. INTRODUCTION
-   ===================================================== */
-
-.intro-section {
-
-    padding: 85px 0;
-
-    background: var(--primary-light);
-
-}
-
-
-.intro-section .section-heading {
-
-    margin-bottom: 0;
-
-}
-
-
-
-/* =====================================================
-   9. ABOUT SECTION
-   ===================================================== */
-
-.about-section {
-
-    background: var(--primary);
-
-}
-
-
-.about-grid {
-
-    display: grid;
-
-    grid-template-columns: 1.1fr 0.9fr;
-
-    align-items: center;
-
-    gap: 65px;
-
-}
-
-
-.about-content h2 {
-
-    font-size: clamp(32px, 4vw, 45px);
-
-    line-height: 1.2;
-
-    margin: 15px 0 25px;
-
-    color: white;
-
-}
-
-
-.about-content h2 span {
-
-    color: var(--accent);
-
-}
-
-
-.about-content p {
-
-    color: var(--muted);
-
-    margin-bottom: 17px;
-
-    font-size: 15px;
-
-}
-
-
-.about-panel {
-
-    min-height: 390px;
-
-    display: grid;
-
-    place-items: center;
-
-    border-radius: 20px;
-
-    border: 1px solid rgba(86, 164, 255, 0.2);
-
-    background:
-        radial-gradient(
-            circle at center,
-            rgba(37, 133, 255, 0.25),
-            transparent 60%
-        ),
-        linear-gradient(
-            145deg,
-            #102b4a,
-            #09172a
+            }
         );
 
-}
 
+        document.addEventListener(
+            "keydown",
+            function (event) {
 
-.about-panel-content {
+                if (event.key === "Escape") {
+                    closeNavigation();
+                }
 
-    text-align: center;
-
-}
-
-
-.large-symbol {
-
-    display: grid;
-
-    place-items: center;
-
-    width: 120px;
-
-    height: 120px;
-
-    margin: 0 auto 25px;
-
-    border-radius: 25px;
-
-    background: var(--accent);
-
-    color: white;
-
-    font-size: 75px;
-
-    font-weight: 900;
-
-    box-shadow:
-        0 15px 50px rgba(37, 133, 255, 0.3);
-
-}
-
-
-.about-panel h3 {
-
-    font-size: 22px;
-
-    color: white;
-
-    letter-spacing: 2px;
-
-}
-
-
-.about-panel p {
-
-    color: var(--accent-light);
-
-    font-size: 13px;
-
-    margin-top: 10px;
-
-}
-
-
-
-/* =====================================================
-   10. MISSION AND VISION
-   ===================================================== */
-
-.mission-section {
-
-    background: var(--primary-light);
-
-}
-
-
-
-/* =====================================================
-   11. REUSABLE CARD GRID
-   ===================================================== */
-
-.three-column-grid {
-
-    display: grid;
-
-    grid-template-columns: repeat(3, 1fr);
-
-    gap: 22px;
-
-}
-
-
-.info-card,
-.division-card,
-.course-card,
-.service-card,
-.product-card,
-.project-card,
-.article-card {
-
-    padding: 30px;
-
-    background: var(--card);
-
-    border: 1px solid var(--border);
-
-    border-radius: 13px;
-
-    transition: var(--transition);
-
-}
-
-
-.info-card:hover,
-.division-card:hover,
-.course-card:hover,
-.service-card:hover,
-.product-card:hover,
-.project-card:hover,
-.article-card:hover {
-
-    transform: translateY(-7px);
-
-    border-color: rgba(37, 133, 255, 0.55);
-
-    box-shadow:
-        0 15px 35px rgba(0, 0, 0, 0.2);
-
-}
-
-
-.info-card h3,
-.division-card h3,
-.course-card h3,
-.service-card h3,
-.product-card h3,
-.project-card h3,
-.article-card h3 {
-
-    color: white;
-
-    font-size: 19px;
-
-    margin: 18px 0 12px;
-
-}
-
-
-.info-card p,
-.division-card p,
-.course-card p,
-.service-card p,
-.product-card p,
-.project-card p,
-.article-card p {
-
-    color: var(--muted);
-
-    font-size: 14px;
-
-}
-
-
-.card-icon,
-.course-number {
-
-    display: grid;
-
-    place-items: center;
-
-    width: 43px;
-
-    height: 43px;
-
-    background: rgba(37, 133, 255, 0.13);
-
-    border: 1px solid rgba(37, 133, 255, 0.3);
-
-    color: var(--accent-light);
-
-    border-radius: 10px;
-
-    font-size: 14px;
-
-    font-weight: 900;
-
-}
-
-
-
-/* =====================================================
-   12. COMPANY DIVISIONS
-   ===================================================== */
-
-.divisions-section {
-
-    background: var(--primary);
-
-}
-
-
-.division-card {
-
-    position: relative;
-
-}
-
-
-.division-card a {
-
-    display: inline-block;
-
-    margin-top: 22px;
-
-    color: var(--accent-light);
-
-    font-size: 13px;
-
-    font-weight: 700;
-
-    transition: var(--transition);
-
-}
-
-
-.division-card a:hover {
-
-    color: white;
-
-    transform: translateX(4px);
-
-}
-
-
-
-/* =====================================================
-   13. PROGRAMMING ACADEMY
-   ===================================================== */
-
-.academy-section {
-
-    background: var(--primary-light);
-
-}
-
-
-.academy-banner {
-
-    padding: 55px;
-
-    margin-bottom: 65px;
-
-    border-radius: 18px;
-
-    border: 1px solid rgba(86, 164, 255, 0.25);
-
-    background:
-        radial-gradient(
-            circle at 85% 50%,
-            rgba(37, 133, 255, 0.2),
-            transparent 40%
-        ),
-        linear-gradient(
-            120deg,
-            #102b4a,
-            #09172a
+            }
         );
 
-}
+    }
 
 
-.academy-banner > div {
+    /* =================================================
+       8. HEADER SCROLL EFFECT
+    ================================================= */
 
-    max-width: 650px;
+    const header =
+        document.querySelector(".site-header");
 
-}
 
+    function updateHeader() {
 
-.academy-banner h3 {
+        if (!header) return;
 
-    color: white;
-
-    font-size: clamp(28px, 4vw, 40px);
-
-    line-height: 1.25;
-
-    margin: 15px 0;
-
-}
-
-
-.academy-banner p {
-
-    color: var(--muted);
-
-    margin-bottom: 25px;
-
-}
-
-
-.course-heading {
-
-    margin-bottom: 30px;
-
-}
-
-
-.course-heading h3 {
-
-    color: white;
-
-    font-size: 25px;
-
-}
-
-
-.course-heading p {
-
-    color: var(--muted);
-
-    font-size: 14px;
-
-}
-
-
-.course-card {
-
-    position: relative;
-
-}
-
-
-.course-level {
-
-    display: inline-block;
-
-    margin-top: 20px;
-
-    color: var(--accent-light);
-
-    font-size: 10px;
-
-    font-weight: 800;
-
-    letter-spacing: 1px;
-
-}
-
-
-
-/* =====================================================
-   14. SERVICES
-   ===================================================== */
-
-.services-section {
-
-    background: var(--primary);
-
-}
-
-
-.service-card {
-
-    position: relative;
-
-}
-
-
-.service-card::before {
-
-    content: "";
-
-    display: block;
-
-    width: 35px;
-
-    height: 3px;
-
-    background: var(--accent);
-
-    margin-bottom: 20px;
-
-    border-radius: 5px;
-
-}
-
-
-
-/* =====================================================
-   15. ONLINE STORE
-   ===================================================== */
-
-.store-section {
-
-    background: var(--primary-light);
-
-}
-
-
-.product-placeholder {
-
-    min-height: 145px;
-
-    display: grid;
-
-    place-items: center;
-
-    text-align: center;
-
-    padding: 20px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #12385e,
-            #0a1b30
+        header.classList.toggle(
+            "scrolled",
+            window.scrollY > 40
         );
 
-    border-radius: 9px;
+    }
 
-    border: 1px solid var(--border);
 
-    color: var(--accent-light);
+    window.addEventListener(
+        "scroll",
+        updateHeader,
+        { passive: true }
+    );
 
-    font-size: 13px;
+    updateHeader();
 
-    font-weight: 800;
 
-    letter-spacing: 2px;
+    /* =================================================
+       9. BACK TO TOP BUTTON
+    ================================================= */
 
-}
+    function updateBackToTop() {
 
+        if (!backToTop) return;
 
-.product-card a {
-
-    display: inline-block;
-
-    margin-top: 22px;
-
-    color: var(--accent-light);
-
-    font-size: 13px;
-
-    font-weight: 700;
-
-}
-
-
-.store-notice {
-
-    text-align: center;
-
-    color: var(--muted);
-
-    font-size: 12px;
-
-    margin-top: 30px;
-
-}
-
-
-
-/* =====================================================
-   16. INNOVATION
-   ===================================================== */
-
-.innovation-section {
-
-    background: var(--primary);
-
-}
-
-
-
-/* =====================================================
-   17. WHY CHOOSE US
-   ===================================================== */
-
-.choose-section {
-
-    background: var(--primary-light);
-
-}
-
-
-
-/* =====================================================
-   18. PROJECTS
-   ===================================================== */
-
-.projects-section {
-
-    background: var(--primary);
-
-}
-
-
-.project-card {
-
-    min-height: 220px;
-
-}
-
-
-.project-card span {
-
-    display: inline-block;
-
-    margin-top: 25px;
-
-    color: var(--accent-light);
-
-    font-size: 10px;
-
-    font-weight: 800;
-
-    letter-spacing: 1px;
-
-}
-
-
-
-/* =====================================================
-   19. TECHNOLOGY BLOG
-   ===================================================== */
-
-.insights-section {
-
-    background: var(--primary-light);
-
-}
-
-
-.article-category {
-
-    color: var(--accent-light);
-
-    font-size: 10px;
-
-    font-weight: 800;
-
-    letter-spacing: 1px;
-
-}
-
-
-.article-card a {
-
-    display: inline-block;
-
-    margin-top: 22px;
-
-    color: var(--accent-light);
-
-    font-size: 13px;
-
-    font-weight: 700;
-
-}
-
-
-
-/* =====================================================
-   20. PARTNERSHIPS
-   ===================================================== */
-
-.partnership-section {
-
-    background:
-        radial-gradient(
-            circle at 50% 50%,
-            rgba(37, 133, 255, 0.2),
-            transparent 60%
-        ),
-        #091a30;
-
-}
-
-
-.partnership-content {
-
-    text-align: center;
-
-    max-width: 780px;
-
-}
-
-
-.partnership-content h2 {
-
-    color: white;
-
-    font-size: clamp(32px, 5vw, 48px);
-
-    line-height: 1.2;
-
-    margin: 20px 0;
-
-}
-
-
-.partnership-content h2 span {
-
-    color: var(--accent);
-
-}
-
-
-.partnership-content p {
-
-    color: var(--muted);
-
-    margin-bottom: 30px;
-
-}
-
-
-
-/* =====================================================
-   21. FAQ SECTION
-   ===================================================== */
-
-.faq-section {
-
-    background: var(--primary);
-
-}
-
-
-.faq-list {
-
-    max-width: 850px;
-
-    margin: 0 auto;
-
-}
-
-
-.faq-item {
-
-    background: var(--card);
-
-    border: 1px solid var(--border);
-
-    border-radius: 9px;
-
-    margin-bottom: 14px;
-
-    padding: 20px 23px;
-
-    transition: var(--transition);
-
-}
-
-
-.faq-item:hover {
-
-    border-color: rgba(37, 133, 255, 0.5);
-
-}
-
-
-.faq-item summary {
-
-    color: white;
-
-    font-weight: 700;
-
-    cursor: pointer;
-
-    list-style: none;
-
-    position: relative;
-
-    padding-right: 25px;
-
-}
-
-
-.faq-item summary::-webkit-details-marker {
-
-    display: none;
-
-}
-
-
-.faq-item summary::after {
-
-    content: "+";
-
-    position: absolute;
-
-    right: 0;
-
-    color: var(--accent-light);
-
-    font-size: 22px;
-
-    top: -5px;
-
-}
-
-
-.faq-item[open] summary::after {
-
-    content: "−";
-
-}
-
-
-.faq-item p {
-
-    color: var(--muted);
-
-    margin-top: 15px;
-
-    font-size: 14px;
-
-}
-
-
-
-/* =====================================================
-   22. NEWSLETTER
-   ===================================================== */
-
-.newsletter-section {
-
-    background: var(--primary-light);
-
-}
-
-
-.newsletter-container {
-
-    display: grid;
-
-    grid-template-columns: 1fr 1fr;
-
-    gap: 55px;
-
-    align-items: center;
-
-}
-
-
-.newsletter-container h2 {
-
-    color: white;
-
-    font-size: clamp(28px, 4vw, 38px);
-
-    line-height: 1.2;
-
-    margin: 15px 0;
-
-}
-
-
-.newsletter-container h2 span {
-
-    color: var(--accent);
-
-}
-
-
-.newsletter-container p {
-
-    color: var(--muted);
-
-}
-
-
-.newsletter-form {
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 12px;
-
-}
-
-
-.newsletter-form label {
-
-    color: white;
-
-    font-size: 13px;
-
-    font-weight: 700;
-
-}
-
-
-.newsletter-form input {
-
-    width: 100%;
-
-    padding: 15px;
-
-    border-radius: 7px;
-
-    border: 1px solid var(--border);
-
-    background: var(--card);
-
-    color: white;
-
-    outline: none;
-
-}
-
-
-.newsletter-form input:focus {
-
-    border-color: var(--accent);
-
-}
-
-
-.newsletter-form small {
-
-    color: var(--muted);
-
-    font-size: 11px;
-
-}
-
-
-
-/* =====================================================
-   23. CONTACT SECTION
-   ===================================================== */
-
-.contact-section {
-
-    background: var(--primary);
-
-}
-
-
-.contact-grid {
-
-    display: grid;
-
-    grid-template-columns: 1fr 1fr;
-
-    gap: 70px;
-
-    align-items: start;
-
-}
-
-
-.contact-content h2 {
-
-    color: white;
-
-    font-size: clamp(32px, 4vw, 45px);
-
-    line-height: 1.2;
-
-    margin: 17px 0;
-
-}
-
-
-.contact-content h2 span {
-
-    color: var(--accent);
-
-}
-
-
-.contact-content > p {
-
-    color: var(--muted);
-
-    margin-bottom: 30px;
-
-}
-
-
-.contact-detail {
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 5px;
-
-    margin-bottom: 20px;
-
-    padding-bottom: 15px;
-
-    border-bottom: 1px solid var(--border);
-
-}
-
-
-.contact-detail strong {
-
-    color: white;
-
-    font-size: 13px;
-
-}
-
-
-.contact-detail span {
-
-    color: var(--muted);
-
-    font-size: 13px;
-
-}
-
-
-.contact-form-container {
-
-    padding: 35px;
-
-    border: 1px solid var(--border);
-
-    background: var(--card);
-
-    border-radius: 13px;
-
-    box-shadow: var(--shadow);
-
-}
-
-
-.contact-form-container h3 {
-
-    color: white;
-
-    font-size: 23px;
-
-}
-
-
-.contact-form-container > p {
-
-    color: var(--muted);
-
-    font-size: 13px;
-
-    margin: 8px 0 25px;
-
-}
-
-
-.contact-form-container form {
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 12px;
-
-}
-
-
-.contact-form-container label {
-
-    color: white;
-
-    font-size: 12px;
-
-    font-weight: 700;
-
-}
-
-
-.contact-form-container input,
-.contact-form-container textarea {
-
-    width: 100%;
-
-    padding: 13px 15px;
-
-    background: var(--primary);
-
-    border: 1px solid var(--border);
-
-    border-radius: 6px;
-
-    color: white;
-
-    outline: none;
-
-    resize: vertical;
-
-}
-
-
-.contact-form-container input:focus,
-.contact-form-container textarea:focus {
-
-    border-color: var(--accent);
-
-}
-
-
-.contact-form-container input::placeholder,
-.contact-form-container textarea::placeholder {
-
-    color: #74869e;
-
-}
-
-
-.contact-form-container small {
-
-    color: var(--muted);
-
-    font-size: 11px;
-
-}
-
-
-
-/* =====================================================
-   24. FOOTER
-   ===================================================== */
-
-.site-footer {
-
-    background: #040d19;
-
-    border-top: 1px solid var(--border);
-
-    padding-top: 70px;
-
-}
-
-
-.footer-grid {
-
-    display: grid;
-
-    grid-template-columns: 1.4fr 1fr 1fr 1fr;
-
-    gap: 40px;
-
-    padding-bottom: 55px;
-
-}
-
-
-.footer-company p {
-
-    color: var(--muted);
-
-    font-size: 13px;
-
-    margin-top: 22px;
-
-    max-width: 300px;
-
-}
-
-
-.footer-links {
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 13px;
-
-}
-
-
-.footer-links h3 {
-
-    color: white;
-
-    font-size: 15px;
-
-    margin-bottom: 8px;
-
-}
-
-
-.footer-links a {
-
-    color: var(--muted);
-
-    font-size: 12px;
-
-    transition: var(--transition);
-
-}
-
-
-.footer-links a:hover {
-
-    color: var(--accent-light);
-
-    padding-left: 4px;
-
-}
-
-
-.footer-bottom {
-
-    border-top: 1px solid var(--border);
-
-    min-height: 75px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    gap: 15px;
-
-    color: var(--muted);
-
-    font-size: 11px;
-
-}
-
-
-
-/* =====================================================
-   25. FORM FEEDBACK
-   ===================================================== */
-
-.form-message {
-
-    margin-top: 10px;
-
-    padding: 12px;
-
-    border-radius: 7px;
-
-    background: rgba(37, 133, 255, 0.12);
-
-    color: var(--accent-light);
-
-    font-size: 13px;
-
-}
-
-
-
-/* =====================================================
-   26. TABLET RESPONSIVENESS
-   ===================================================== */
-
-@media (max-width: 1050px) {
-
-    .main-navigation {
-
-        gap: 13px;
+        backToTop.classList.toggle(
+            "visible",
+            window.scrollY > 450
+        );
 
     }
 
 
-    .main-navigation a {
-
-        font-size: 11px;
-
-    }
-
-
-    .hero-container {
-
-        gap: 35px;
-
-    }
+    window.addEventListener(
+        "scroll",
+        updateBackToTop,
+        { passive: true }
+    );
 
 
-    .footer-grid {
+    if (backToTop) {
 
-        grid-template-columns: repeat(2, 1fr);
+        backToTop.addEventListener(
+            "click",
+            function () {
 
-    }
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
 
-}
-
-
-
-/* =====================================================
-   27. MOBILE RESPONSIVENESS
-   ===================================================== */
-
-@media (max-width: 768px) {
-
-
-    .section-padding {
-
-        padding: 70px 0;
+            }
+        );
 
     }
 
 
-    .header-container {
+    /* =================================================
+       10. SEARCH BUTTON
+    ================================================= */
 
-        min-height: 72px;
+    if (searchButton && searchInput) {
 
-    }
+        searchButton.addEventListener(
+            "click",
+            function () {
 
+                document
+                    .querySelector("#products")
+                    ?.scrollIntoView({
+                        behavior: "smooth"
+                    });
 
-    .menu-toggle {
+                setTimeout(function () {
 
-        display: flex;
+                    searchInput.focus();
 
-    }
+                }, 500);
 
-
-    .main-navigation {
-
-        position: absolute;
-
-        top: 72px;
-
-        left: 0;
-
-        width: 100%;
-
-        padding: 20px 5% 25px;
-
-        background: #071426;
-
-        border-bottom: 1px solid var(--border);
-
-        display: none;
-
-        flex-direction: column;
-
-        align-items: stretch;
-
-        gap: 0;
+            }
+        );
 
     }
 
 
-    .main-navigation.active {
+    /* =================================================
+       11. PRODUCT CATALOGUE
+    ================================================= */
 
-        display: flex;
+    function renderProducts() {
+
+        if (!productGrid) return;
+
+
+        let filteredProducts = [...products];
+
+
+        // Category filtering
+
+        if (activeCategory !== "all") {
+
+            filteredProducts =
+                filteredProducts.filter(
+                    function (product) {
+
+                        return product.category ===
+                            activeCategory;
+
+                    }
+                );
+
+        }
+
+
+        // Product searching
+
+        if (searchTerm) {
+
+            filteredProducts =
+                filteredProducts.filter(
+                    function (product) {
+
+                        const searchableText = [
+                            product.name,
+                            product.category,
+                            product.description
+                        ].join(" ").toLowerCase();
+
+                        return searchableText.includes(
+                            searchTerm
+                        );
+
+                    }
+                );
+
+        }
+
+
+        // Product sorting
+
+        if (sortMethod === "price-low") {
+
+            filteredProducts.sort(
+                (a, b) => a.price - b.price
+            );
+
+        }
+
+        else if (sortMethod === "price-high") {
+
+            filteredProducts.sort(
+                (a, b) => b.price - a.price
+            );
+
+        }
+
+        else if (sortMethod === "name") {
+
+            filteredProducts.sort(
+                (a, b) =>
+                    a.name.localeCompare(b.name)
+            );
+
+        }
+
+
+        // Empty search results
+
+        if (filteredProducts.length === 0) {
+
+            const message = products.length === 0
+                ? "Our product catalogue is growing. New products will appear here as they become available."
+                : "No products match your search. Try another name or category.";
+
+            productGrid.innerHTML = `
+
+                <div class="empty-products">
+
+                    <span class="empty-products-icon">
+                        TMET
+                    </span>
+
+                    <h3>
+                        ${
+                            products.length === 0
+                                ? "Our Product Catalogue Is Growing"
+                                : "No Products Found"
+                        }
+                    </h3>
+
+                    <p>
+                        ${message}
+                    </p>
+
+                    <button
+                        type="button"
+                        class="button button-primary"
+                        id="reset-product-search">
+
+                        View All Products
+
+                    </button>
+
+                </div>
+
+            `;
+
+
+            document
+                .querySelector("#reset-product-search")
+                ?.addEventListener("click", function () {
+
+                    activeCategory = "all";
+
+                    searchTerm = "";
+
+                    sortMethod = "default";
+
+                    if (searchInput) {
+                        searchInput.value = "";
+                    }
+
+                    if (sortSelect) {
+                        sortSelect.value = "default";
+                    }
+
+                    updateFilterButtons();
+
+                    renderProducts();
+
+                });
+
+            return;
+
+        }
+
+
+        // Display product cards
+
+        productGrid.innerHTML =
+            filteredProducts.map(
+                function (product) {
+
+                    const safeName =
+                        escapeHTML(product.name);
+
+                    const safeDescription =
+                        escapeHTML(product.description);
+
+                    const safeCategory =
+                        escapeHTML(product.category);
+
+                    const imageMarkup = product.image
+                        ? `
+                            <img
+                                class="product-image"
+                                src="${escapeHTML(product.image)}"
+                                alt="${safeName}"
+                                loading="lazy">
+                          `
+                        : `
+                            <div class="product-image"
+                                 role="img"
+                                 aria-label="${safeName}">
+                                ${safeName}
+                            </div>
+                          `;
+
+
+                    return `
+
+                        <article class="product-card">
+
+                            ${imageMarkup}
+
+                            <div class="product-details">
+
+                                <span class="product-category">
+                                    ${safeCategory}
+                                </span>
+
+                                <h3 class="product-name">
+                                    ${safeName}
+                                </h3>
+
+                                <p class="product-description">
+                                    ${safeDescription}
+                                </p>
+
+                                <div class="product-price">
+                                    ${formatMoney(product.price)}
+                                </div>
+
+                                <button
+                                    type="button"
+                                    class="add-to-cart"
+                                    data-add-to-cart="${escapeHTML(product.id)}">
+
+                                    Add to Cart
+
+                                </button>
+
+                            </div>
+
+                        </article>
+
+                    `;
+
+                }
+            ).join("");
+
+
+        // Connect newly created product buttons
+
+        productGrid
+            .querySelectorAll("[data-add-to-cart]")
+            .forEach(function (button) {
+
+                button.addEventListener(
+                    "click",
+                    function () {
+
+                        addToCart(
+                            button.dataset.addToCart
+                        );
+
+                    }
+                );
+
+            });
 
     }
 
 
-    .main-navigation a {
+    /* =================================================
+       12. PRODUCT SEARCH
+    ================================================= */
 
-        padding: 13px 5px;
+    if (searchInput) {
 
-        font-size: 14px;
+        searchInput.addEventListener(
+            "input",
+            function () {
 
-        border-bottom: 1px solid var(--border);
+                searchTerm =
+                    searchInput.value
+                        .trim()
+                        .toLowerCase();
 
-    }
+                renderProducts();
 
-
-    .main-navigation .nav-contact {
-
-        text-align: center;
-
-        margin-top: 12px;
-
-        border-bottom: none;
-
-    }
-
-
-    .hero-section {
-
-        padding: 75px 0;
+            }
+        );
 
     }
 
 
-    .hero-container {
+    /* =================================================
+       13. PRODUCT SORTING
+    ================================================= */
 
-        grid-template-columns: 1fr;
+    if (sortSelect) {
 
-        gap: 55px;
+        sortSelect.addEventListener(
+            "change",
+            function () {
 
-    }
+                sortMethod = sortSelect.value;
 
+                renderProducts();
 
-    .hero-content h1 {
-
-        font-size: 43px;
-
-    }
-
-
-    .hero-description {
-
-        font-size: 14px;
+            }
+        );
 
     }
 
 
-    .visual-card {
+    /* =================================================
+       14. CATEGORY FILTERING
+    ================================================= */
 
-        transform: none;
+    function updateFilterButtons() {
 
-    }
+        filterButtons.forEach(
+            function (button) {
 
+                button.classList.toggle(
+                    "active",
+                    button.dataset.filter === activeCategory
+                );
 
-    .about-grid {
-
-        grid-template-columns: 1fr;
-
-        gap: 40px;
-
-    }
-
-
-    .about-panel {
-
-        min-height: 300px;
+            }
+        );
 
     }
 
 
-    .three-column-grid {
+    filterButtons.forEach(
+        function (button) {
 
-        grid-template-columns: repeat(2, 1fr);
+            button.addEventListener(
+                "click",
+                function () {
 
-        gap: 15px;
+                    activeCategory =
+                        button.dataset.filter;
 
-    }
+                    updateFilterButtons();
 
+                    renderProducts();
 
-    .info-card,
-    .division-card,
-    .course-card,
-    .service-card,
-    .product-card,
-    .project-card,
-    .article-card {
+                }
+            );
 
-        padding: 22px;
-
-    }
-
-
-    .academy-banner {
-
-        padding: 35px 25px;
-
-    }
+        }
+    );
 
 
-    .newsletter-container {
+    // Category cards also control the product filter
 
-        grid-template-columns: 1fr;
+    categoryButtons.forEach(
+        function (button) {
 
-        gap: 35px;
+            button.addEventListener(
+                "click",
+                function () {
 
-    }
+                    activeCategory =
+                        button.dataset.categoryLink;
 
+                    updateFilterButtons();
 
-    .contact-grid {
+                    renderProducts();
 
-        grid-template-columns: 1fr;
+                    document
+                        .querySelector("#products")
+                        ?.scrollIntoView({
+                            behavior: "smooth"
+                        });
 
-        gap: 40px;
+                }
+            );
 
-    }
-
-
-    .footer-grid {
-
-        grid-template-columns: repeat(2, 1fr);
-
-        gap: 35px 20px;
-
-    }
-
-
-    .footer-bottom {
-
-        flex-direction: column;
-
-        justify-content: center;
-
-        text-align: center;
-
-        padding: 20px 0;
-
-    }
-
-}
+        }
+    );
 
 
+    /* =================================================
+       15. CART STORAGE
+    ================================================= */
 
-/* =====================================================
-   28. SMALL MOBILE PHONES
-   ===================================================== */
+    function loadCart() {
 
-@media (max-width: 480px) {
+        try {
 
+            const savedCart =
+                localStorage.getItem("tmet-shopping-cart");
 
-    .container {
+            const parsedCart =
+                savedCart ? JSON.parse(savedCart) : [];
 
-        width: 91%;
+            if (!Array.isArray(parsedCart)) {
+                return [];
+            }
 
-    }
+            return parsedCart.filter(function (item) {
 
+                return item &&
+                    products.some(function (product) {
 
-    .hero-content h1 {
+                        return String(product.id) ===
+                            String(item.id);
 
-        font-size: 37px;
+                    }) &&
+                    Number.isInteger(item.quantity) &&
+                    item.quantity > 0;
 
-        letter-spacing: -1px;
+            });
 
-    }
+        }
 
+        catch (error) {
 
-    .hero-buttons {
+            console.warn(
+                "Unable to load saved cart.",
+                error
+            );
 
-        flex-direction: column;
+            return [];
 
-        align-items: stretch;
+        }
 
     }
 
 
-    .hero-buttons .button {
+    function saveCart() {
 
-        width: 100%;
+        try {
 
-    }
+            localStorage.setItem(
+                "tmet-shopping-cart",
+                JSON.stringify(cart)
+            );
 
+        }
 
-    .section-heading h2 {
+        catch (error) {
 
-        font-size: 30px;
+            console.warn(
+                "Unable to save shopping cart.",
+                error
+            );
 
-    }
-
-
-    .three-column-grid {
-
-        grid-template-columns: 1fr;
-
-    }
-
-
-    .visual-card {
-
-        padding: 18px;
+        }
 
     }
 
 
-    .visual-code {
+    /* =================================================
+       16. ADD PRODUCTS TO CART
+    ================================================= */
 
-        font-size: 11px;
+    function addToCart(productId) {
 
-    }
+        const product =
+            getProduct(productId);
 
-
-    .visual-bottom {
-
-        font-size: 8px;
-
-        letter-spacing: 1px;
-
-    }
+        if (!product) return;
 
 
-    .footer-grid {
+        const existingItem =
+            cart.find(function (item) {
 
-        grid-template-columns: 1fr 1fr;
+                return String(item.id) ===
+                    String(productId);
 
-    }
-
-
-    .contact-form-container {
-
-        padding: 23px;
-
-    }
+            });
 
 
-    .large-symbol {
+        if (existingItem) {
 
-        width: 95px;
+            existingItem.quantity += 1;
 
-        height: 95px;
+        }
 
-        font-size: 60px;
+        else {
 
-    }
+            cart.push({
+                id: product.id,
+                quantity: 1
+            });
 
-}
+        }
 
 
+        saveCart();
 
-/* =====================================================
-   29. REDUCED MOTION ACCESSIBILITY
-   ===================================================== */
+        renderCart();
 
-@media (prefers-reduced-motion: reduce) {
-
-    html {
-
-        scroll-behavior: auto;
+        alert(product.name + " added to your cart.");
 
     }
 
 
-    *,
-    *::before,
-    *::after {
+    /* =================================================
+       17. CHANGE CART QUANTITIES
+    ================================================= */
 
-        transition-duration: 0.01ms !important;
+    function changeQuantity(productId, amount) {
 
-        animation-duration: 0.01ms !important;
+        const item =
+            cart.find(function (cartItem) {
+
+                return String(cartItem.id) ===
+                    String(productId);
+
+            });
+
+        if (!item) return;
+
+
+        item.quantity += amount;
+
+
+        if (item.quantity <= 0) {
+
+            cart = cart.filter(function (cartItem) {
+
+                return String(cartItem.id) !==
+                    String(productId);
+
+            });
+
+        }
+
+
+        saveCart();
+
+        renderCart();
 
     }
 
-}
+
+    /* =================================================
+       18. REMOVE CART PRODUCTS
+    ================================================= */
+
+    function removeFromCart(productId) {
+
+        cart = cart.filter(function (item) {
+
+            return String(item.id) !==
+                String(productId);
+
+        });
+
+        saveCart();
+
+        renderCart();
+
+    }
+
+
+    /* =================================================
+       19. RENDER SHOPPING CART
+    ================================================= */
+
+    function renderCart() {
+
+        if (!cartItemsContainer) return;
+
+
+        let totalQuantity = 0;
+
+        let totalPrice = 0;
+
+
+        cart.forEach(function (item) {
+
+            const product =
+                getProduct(item.id);
+
+            if (!product) return;
+
+            totalQuantity += item.quantity;
+
+            totalPrice +=
+                product.price * item.quantity;
+
+        });
+
+
+        if (cartCount) {
+
+            cartCount.textContent =
+                totalQuantity;
+
+        }
+
+
+        if (cartTotal) {
+
+            cartTotal.textContent =
+                formatMoney(totalPrice);
+
+        }
+
+
+        if (checkoutButton) {
+
+            checkoutButton.disabled =
+                cart.length === 0;
+
+        }
+
+
+        if (cart.length === 0) {
+
+            cartItemsContainer.innerHTML = `
+
+                <p class="cart-empty">
+                    Your cart is currently empty.
+                </p>
+
+            `;
+
+            return;
+
+        }
+
+
+        cartItemsContainer.innerHTML =
+            cart.map(function (item) {
+
+                const product =
+                    getProduct(item.id);
+
+                if (!product) return "";
+
+
+                return `
+
+                    <div class="cart-item">
+
+                        <div>
+
+                            <h4>
+                                ${escapeHTML(product.name)}
+                            </h4>
+
+                            <p>
+                                ${formatMoney(product.price)}
+                            </p>
+
+                            <div class="cart-item-controls">
+
+                                <button
+                                    type="button"
+                                    data-quantity-minus="${escapeHTML(product.id)}"
+                                    aria-label="Decrease quantity">
+
+                                    −
+
+                                </button>
+
+                                <span>
+                                    ${item.quantity}
+                                </span>
+
+                                <button
+                                    type="button"
+                                    data-quantity-plus="${escapeHTML(product.id)}"
+                                    aria-label="Increase quantity">
+
+                                    +
+
+                                </button>
+
+                                <button
+                                    type="button"
+                                    data-remove-item="${escapeHTML(product.id)}"
+                                    aria-label="Remove product">
+
+                                    Remove
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                        <strong>
+                            ${formatMoney(
+                                product.price * item.quantity
+                            )}
+                        </strong>
+
+                    </div>
+
+                `;
+
+            }).join("");
+
+
+        // Connect quantity and remove buttons
+
+        cartItemsContainer
+            .querySelectorAll("[data-quantity-minus]")
+            .forEach(function (button) {
+
+                button.addEventListener(
+                    "click",
+                    function () {
+
+                        changeQuantity(
+                            button.dataset.quantityMinus,
+                            -1
+                        );
+
+                    }
+                );
+
+            });
+
+
+        cartItemsContainer
+            .querySelectorAll("[data-quantity-plus]")
+            .forEach(function (button) {
+
+                button.addEventListener(
+                    "click",
+                    function () {
+
+                        changeQuantity(
+                            button.dataset.quantityPlus,
+                            1
+                        );
+
+                    }
+                );
+
+            });
+
+
+        cartItemsContainer
+            .querySelectorAll("[data-remove-item]")
+            .forEach(function (button) {
+
+                button.addEventListener(
+                    "click",
+                    function () {
+
+                        removeFromCart(
+                            button.dataset.removeItem
+                        );
+
+                    }
+                );
+
+            });
+
+    }
+
+
+    /* =================================================
+       20. OPEN AND CLOSE SHOPPING CART
+    ================================================= */
+
+    function openCart() {
+
+        if (!cartOverlay) return;
+
+        cartOverlay.classList.add("active");
+
+        cartOverlay.setAttribute(
+            "aria-hidden",
+            "false"
+        );
+
+        document.body.style.overflow = "hidden";
+
+        closeCartButton?.focus();
+
+    }
+
+
+    function closeCart() {
+
+        if (!cartOverlay) return;
+
+        cartOverlay.classList.remove("active");
+
+        cartOverlay.setAttribute(
+            "aria-hidden",
+            "true"
+        );
+
+        document.body.style.overflow = "";
+
+        openCartButton?.focus();
+
+    }
+
+
+    openCartButton?.addEventListener(
+        "click",
+        openCart
+    );
+
+
+    closeCartButton?.addEventListener(
+        "click",
+        closeCart
+    );
+
+
+    cartOverlay?.addEventListener(
+        "click",
+        function (event) {
+
+            if (event.target === cartOverlay) {
+                closeCart();
+            }
+
+        }
+    );
+
+
+    document.addEventListener(
+        "keydown",
+        function (event) {
+
+            if (
+                event.key === "Escape" &&
+                cartOverlay?.classList.contains("active")
+            ) {
+
+                closeCart();
+
+            }
+
+        }
+    );
+
+
+    /* =================================================
+       21. WHATSAPP CHECKOUT
+    ================================================= */
+
+    function checkout() {
+
+        if (cart.length === 0) {
+
+            alert("Your shopping cart is empty.");
+
+            return;
+
+        }
+
+
+        if (!isValidWhatsAppNumber()) {
+
+            alert(
+                "The store's WhatsApp number has not been configured. Please configure it in the TMET_CONFIG section of script.js before accepting orders."
+            );
+
+            return;
+
+        }
+
+
+        let orderTotal = 0;
+
+        let message =
+            "Hello TMET Technologies! I would like to place an order.\n\n";
+
+        message += "MY ORDER:\n";
+
+
+        cart.forEach(function (item, index) {
+
+            const product =
+                getProduct(item.id);
+
+            if (!product) return;
+
+
+            const subtotal =
+                product.price * item.quantity;
+
+            orderTotal += subtotal;
+
+
+            message +=
+                (index + 1) + ". " +
+                product.name + "\n";
+
+            message +=
+                "Quantity: " +
+                item.quantity + "\n";
+
+            message +=
+                "Unit Price: " +
+                formatMoney(product.price) + "\n";
+
+            message +=
+                "Subtotal: " +
+                formatMoney(subtotal) + "\n\n";
+
+        });
+
+
+        message +=
+            "ESTIMATED TOTAL: " +
+            formatMoney(orderTotal) + "\n\n";
+
+        message +=
+            "Please confirm product availability, final pricing and delivery arrangements.\n\n";
+
+        message +=
+            "Thank you. I look forward to your response.";
+
+
+        sendWhatsAppMessage(message);
+
+    }
+
+
+    checkoutButton?.addEventListener(
+        "click",
+        checkout
+    );
+
+
+    /* =================================================
+       22. CONTACT FORM
+    ================================================= */
+
+    if (contactForm) {
+
+        contactForm.addEventListener(
+            "submit",
+            function (event) {
+
+                event.preventDefault();
+
+
+                if (!contactForm.checkValidity()) {
+
+                    contactForm.reportValidity();
+
+                    return;
+
+                }
+
+
+                const name =
+                    document.querySelector(
+                        "#customer-name"
+                    )?.value.trim();
+
+                const email =
+                    document.querySelector(
+                        "#customer-email"
+                    )?.value.trim();
+
+                const enquiry =
+                    document.querySelector(
+                        "#enquiry-type"
+                    )?.value;
+
+                const message =
+                    document.querySelector(
+                        "#customer-message"
+                    )?.value.trim();
+
+
+                if (!name || !email || !enquiry || !message) {
+
+                    alert(
+                        "Please complete all the required fields."
+                    );
+
+                    return;
+
+                }
+
+
+                const whatsappMessage =
+
+                    "Hello TMET Technologies!\n\n" +
+
+                    "BUSINESS ENQUIRY\n\n" +
+
+                    "Name: " + name + "\n" +
+
+                    "Email: " + email + "\n" +
+
+                    "Enquiry: " + enquiry + "\n\n" +
+
+                    "Message:\n" + message;
+
+
+                if (
+                    sendWhatsAppMessage(
+                        whatsappMessage
+                    )
+                ) {
+
+                    showFeedback(
+                        document.querySelector(
+                            "#contact-feedback"
+                        ),
+                        "Your enquiry is ready to send through WhatsApp.",
+                        "success"
+                    );
+
+                }
+
+            }
+        );
+
+    }
+
+
+    /* =================================================
+       23. NEWSLETTER FORM
+    ================================================= */
+
+    if (newsletterForm) {
+
+        newsletterForm.addEventListener(
+            "submit",
+            function (event) {
+
+                event.preventDefault();
+
+
+                if (!newsletterForm.checkValidity()) {
+
+                    newsletterForm.reportValidity();
+
+                    return;
+
+                }
+
+
+                showFeedback(
+                    document.querySelector(
+                        "#newsletter-feedback"
+                    ),
+                    "Newsletter subscriptions are not connected yet. Please check back soon.",
+                    "error"
+                );
+
+            }
+        );
+
+    }
+
+
+    /* =================================================
+       24. FAQ INTERACTION
+    ================================================= */
+
+    const faqItems =
+        document.querySelectorAll(".faq-item");
+
+
+    faqItems.forEach(function (item) {
+
+        item.addEventListener(
+            "toggle",
+            function () {
+
+                if (!item.open) return;
+
+                faqItems.forEach(function (otherItem) {
+
+                    if (otherItem !== item) {
+
+                        otherItem.open = false;
+
+                    }
+
+                });
+
+            }
+        );
+
+    });
+
+
+    /* =================================================
+       25. INITIALIZE WEBSITE
+    ================================================= */
+
+    updateFilterButtons();
+
+    renderProducts();
+
+    renderCart();
+
+    updateHeader();
+
+    updateBackToTop();
+
+
+    console.log(
+        "TMET Technologies online store is ready."
+    );
+
+});
