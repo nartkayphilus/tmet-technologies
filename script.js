@@ -1,17 +1,13 @@
 /* =====================================================
    TMET TECHNOLOGIES
    ADVANCED ONLINE STORE JAVASCRIPT
-   Version 2.0
+   Version 3.0
 ===================================================== */
 
 
 /* =====================================================
    1. BUSINESS CONFIGURATION
 ===================================================== */
-
-// Enter your WhatsApp business number here later.
-// Use the international format without + or spaces.
-// Example format for Ghana: 233XXXXXXXXX
 
 const TMET_CONFIG = {
     whatsappNumber: "",
@@ -24,112 +20,61 @@ const TMET_CONFIG = {
    2. PRODUCT DATABASE
 ===================================================== */
 
-// Add products to this array whenever they become
-// available for sale.
-//
-// Every product should have:
-// id, name, category, price, description and image.
-//
-// Supported categories:
-// computers, phones, accessories, equipment, books, other
-//
-// Example product (keep commented until you have
-// a real product, price and image):
-//
-// {
-//     id: 1,
-//     name: "Laptop Computer",
-//     category: "computers",
-//     price: 3500,
-//     description: "Professional laptop computer.",
-//     image: "https://example.com/laptop.jpg"
-// }
-
 const products = [];
 
 
 /* =====================================================
-   3. GLOBAL ELEMENTS
+   3. START WEBSITE
 ===================================================== */
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    const menuToggle =
-        document.querySelector("#menu-toggle");
+    /* =================================================
+       4. GLOBAL ELEMENTS
+    ================================================= */
 
-    const navigation =
-        document.querySelector("#main-navigation");
+    const menuToggle = document.querySelector("#menu-toggle");
+    const navigation = document.querySelector("#main-navigation");
 
-    const searchInput =
-        document.querySelector("#product-search-input");
+    const searchInput = document.querySelector("#product-search-input");
+    const searchButton = document.querySelector("#search-focus-button");
+    const sortSelect = document.querySelector("#product-sort");
+    const productGrid = document.querySelector("#product-grid");
 
-    const searchButton =
-        document.querySelector("#search-focus-button");
+    const filterButtons = document.querySelectorAll(".filter-button");
+    const categoryButtons = document.querySelectorAll("[data-category-link]");
 
-    const sortSelect =
-        document.querySelector("#product-sort");
+    const cartOverlay = document.querySelector("#cart-overlay");
+    const cartPanel = document.querySelector("#cart-panel");
+    const openCartButton = document.querySelector("#open-cart");
+    const closeCartButton = document.querySelector("#close-cart");
+    const cartItemsContainer = document.querySelector("#cart-items");
+    const cartCount = document.querySelector("#cart-count");
+    const cartTotal = document.querySelector("#cart-total");
+    const checkoutButton = document.querySelector("#checkout-button");
 
-    const productGrid =
-        document.querySelector("#product-grid");
+    const contactForm = document.querySelector("#contact-form");
+    const newsletterForm = document.querySelector("#newsletter-form");
 
-    const filterButtons =
-        document.querySelectorAll(".filter-button");
+    const backToTop = document.querySelector("#back-to-top");
+    const currentYear = document.querySelector("#current-year");
 
-    const categoryButtons =
-        document.querySelectorAll("[data-category-link]");
-
-    const cartOverlay =
-        document.querySelector("#cart-overlay");
-
-    const cartPanel =
-        document.querySelector("#cart-panel");
-
-    const openCartButton =
-        document.querySelector("#open-cart");
-
-    const closeCartButton =
-        document.querySelector("#close-cart");
-
-    const cartItemsContainer =
-        document.querySelector("#cart-items");
-
-    const cartCount =
-        document.querySelector("#cart-count");
-
-    const cartTotal =
-        document.querySelector("#cart-total");
-
-    const checkoutButton =
-        document.querySelector("#checkout-button");
-
-    const contactForm =
-        document.querySelector("#contact-form");
-
-    const newsletterForm =
-        document.querySelector("#newsletter-form");
-
-    const backToTop =
-        document.querySelector("#back-to-top");
-
-    const currentYear =
-        document.querySelector("#current-year");
+    const header = document.querySelector(".site-header");
 
 
     /* =================================================
-       4. APPLICATION STATE
+       5. APPLICATION STATE
     ================================================= */
 
     let activeCategory = "all";
-
     let searchTerm = "";
-
     let sortMethod = "default";
 
     let cart = loadCart();
 
 
     /* =================================================
-       5. GENERAL HELPER FUNCTIONS
+       6. GENERAL HELPER FUNCTIONS
     ================================================= */
 
     function formatMoney(amount) {
@@ -167,9 +112,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function getProduct(productId) {
 
         return products.find(function (product) {
-
             return String(product.id) === String(productId);
-
         });
 
     }
@@ -204,7 +147,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (!isValidWhatsAppNumber()) {
 
             alert(
-                "The WhatsApp business number has not been configured yet. Please contact the store administrator."
+                "The WhatsApp business number has not been configured yet."
             );
 
             return false;
@@ -225,7 +168,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =================================================
-       6. AUTOMATIC COPYRIGHT YEAR
+       7. COPYRIGHT YEAR
     ================================================= */
 
     if (currentYear) {
@@ -237,7 +180,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =================================================
-       7. MOBILE NAVIGATION
+       8. MOBILE NAVIGATION
     ================================================= */
 
     if (menuToggle && navigation) {
@@ -292,39 +235,27 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
 
-        navigation.querySelectorAll("a").forEach(
-            function (link) {
+        navigation.querySelectorAll("a").forEach(function (link) {
 
-                link.addEventListener(
-                    "click",
-                    closeNavigation
-                );
+            link.addEventListener("click", closeNavigation);
 
+        });
+
+
+        document.addEventListener("keydown", function (event) {
+
+            if (event.key === "Escape") {
+                closeNavigation();
             }
-        );
 
-
-        document.addEventListener(
-            "keydown",
-            function (event) {
-
-                if (event.key === "Escape") {
-                    closeNavigation();
-                }
-
-            }
-        );
+        });
 
     }
 
 
     /* =================================================
-       8. HEADER SCROLL EFFECT
+       9. HEADER SCROLL EFFECT
     ================================================= */
-
-    const header =
-        document.querySelector(".site-header");
-
 
     function updateHeader() {
 
@@ -344,11 +275,9 @@ document.addEventListener("DOMContentLoaded", function () {
         { passive: true }
     );
 
-    updateHeader();
-
 
     /* =================================================
-       9. BACK TO TOP BUTTON
+       10. BACK TO TOP BUTTON
     ================================================= */
 
     function updateBackToTop() {
@@ -370,59 +299,241 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
 
-    if (backToTop) {
+    backToTop?.addEventListener("click", function () {
 
-        backToTop.addEventListener(
-            "click",
-            function () {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
 
-                window.scrollTo({
-                    top: 0,
-                    behavior: "smooth"
-                });
-
-            }
-        );
-
-    }
+    });
 
 
     /* =================================================
-       10. SEARCH BUTTON
+       11. SEARCH BUTTON
     ================================================= */
 
     if (searchButton && searchInput) {
 
-        searchButton.addEventListener(
-            "click",
-            function () {
+        searchButton.addEventListener("click", function () {
 
-                document
-                    .querySelector("#products")
-                    ?.scrollIntoView({
-                        behavior: "smooth"
-                    });
+            document.querySelector("#products")?.scrollIntoView({
+                behavior: "smooth"
+            });
 
-                setTimeout(function () {
+            setTimeout(function () {
+                searchInput.focus();
+            }, 500);
 
-                    searchInput.focus();
-
-                }, 500);
-
-            }
-        );
+        });
 
     }
 
 
     /* =================================================
-       11. PRODUCT CATALOGUE
+       12. SCROLL-REVEAL ANIMATIONS
+    ================================================= */
+
+    // These styles are added automatically.
+    // You do not need to add them separately to style.css.
+
+    const revealStyles = document.createElement("style");
+
+    revealStyles.textContent = `
+
+        .tmet-reveal {
+            opacity: 0;
+            transform: translateY(45px);
+            transition:
+                opacity 0.8s ease,
+                transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+            will-change: opacity, transform;
+        }
+
+        .tmet-reveal-left {
+            opacity: 0;
+            transform: translateX(-45px);
+            transition:
+                opacity 0.8s ease,
+                transform 0.8s ease;
+        }
+
+        .tmet-reveal-right {
+            opacity: 0;
+            transform: translateX(45px);
+            transition:
+                opacity 0.8s ease,
+                transform 0.8s ease;
+        }
+
+        .tmet-reveal-scale {
+            opacity: 0;
+            transform: scale(0.94);
+            transition:
+                opacity 0.8s ease,
+                transform 0.8s ease;
+        }
+
+        .tmet-reveal.is-visible,
+        .tmet-reveal-left.is-visible,
+        .tmet-reveal-right.is-visible,
+        .tmet-reveal-scale.is-visible {
+            opacity: 1;
+            transform: translate(0, 0) scale(1);
+        }
+
+        .product-card {
+            transition:
+                transform 0.35s ease,
+                box-shadow 0.35s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-7px);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .tmet-reveal,
+            .tmet-reveal-left,
+            .tmet-reveal-right,
+            .tmet-reveal-scale {
+                opacity: 1;
+                transform: none;
+                transition: none;
+            }
+
+            .product-card {
+                transition: none;
+            }
+        }
+
+    `;
+
+    document.head.appendChild(revealStyles);
+
+
+    const reducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+
+    let revealObserver = null;
+
+
+    function observeRevealElements(elements) {
+
+        if (!elements || reducedMotion) {
+
+            elements?.forEach(function (element) {
+                element.classList.add("is-visible");
+            });
+
+            return;
+
+        }
+
+        if (!("IntersectionObserver" in window)) {
+
+            elements.forEach(function (element) {
+                element.classList.add("is-visible");
+            });
+
+            return;
+
+        }
+
+        if (!revealObserver) {
+
+            revealObserver = new IntersectionObserver(
+                function (entries, observer) {
+
+                    entries.forEach(function (entry) {
+
+                        if (entry.isIntersecting) {
+
+                            entry.target.classList.add("is-visible");
+
+                            observer.unobserve(entry.target);
+
+                        }
+
+                    });
+
+                },
+                {
+                    threshold: 0.12,
+                    rootMargin: "0px 0px -35px 0px"
+                }
+            );
+
+        }
+
+
+        elements.forEach(function (element) {
+
+            if (element.dataset.revealReady === "true") {
+                return;
+            }
+
+            element.dataset.revealReady = "true";
+
+            revealObserver.observe(element);
+
+        });
+
+    }
+
+
+    function initializeScrollAnimations() {
+
+        const sections = document.querySelectorAll(
+            "main section, .about-content, .contact-content, .service-card, .highlight-card, .category-card, .faq-item"
+        );
+
+        sections.forEach(function (element, index) {
+
+            if (
+                element.classList.contains("tmet-reveal") ||
+                element.classList.contains("tmet-reveal-left") ||
+                element.classList.contains("tmet-reveal-right")
+            ) {
+                return;
+            }
+
+            if (index % 3 === 1) {
+                element.classList.add("tmet-reveal-left");
+            }
+
+            else if (index % 3 === 2) {
+                element.classList.add("tmet-reveal-right");
+            }
+
+            else {
+                element.classList.add("tmet-reveal");
+            }
+
+        });
+
+
+        observeRevealElements(
+            document.querySelectorAll(
+                ".tmet-reveal, .tmet-reveal-left, .tmet-reveal-right, .tmet-reveal-scale"
+            )
+        );
+
+    }
+
+
+    initializeScrollAnimations();
+
+
+    /* =================================================
+       13. PRODUCT CATALOGUE
     ================================================= */
 
     function renderProducts() {
 
         if (!productGrid) return;
-
 
         let filteredProducts = [...products];
 
@@ -431,15 +542,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (activeCategory !== "all") {
 
-            filteredProducts =
-                filteredProducts.filter(
-                    function (product) {
-
-                        return product.category ===
-                            activeCategory;
-
-                    }
-                );
+            filteredProducts = filteredProducts.filter(
+                function (product) {
+                    return product.category === activeCategory;
+                }
+            );
 
         }
 
@@ -448,22 +555,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (searchTerm) {
 
-            filteredProducts =
-                filteredProducts.filter(
-                    function (product) {
+            filteredProducts = filteredProducts.filter(
+                function (product) {
 
-                        const searchableText = [
-                            product.name,
-                            product.category,
-                            product.description
-                        ].join(" ").toLowerCase();
+                    const searchableText = [
+                        product.name,
+                        product.category,
+                        product.description
+                    ].join(" ").toLowerCase();
 
-                        return searchableText.includes(
-                            searchTerm
-                        );
+                    return searchableText.includes(searchTerm);
 
-                    }
-                );
+                }
+            );
 
         }
 
@@ -489,8 +593,7 @@ document.addEventListener("DOMContentLoaded", function () {
         else if (sortMethod === "name") {
 
             filteredProducts.sort(
-                (a, b) =>
-                    a.name.localeCompare(b.name)
+                (a, b) => a.name.localeCompare(b.name)
             );
 
         }
@@ -500,9 +603,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (filteredProducts.length === 0) {
 
-            const message = products.length === 0
-                ? "Our product catalogue is growing. New products will appear here as they become available."
-                : "No products match your search. Try another name or category.";
+            const noProducts = products.length === 0;
 
             productGrid.innerHTML = `
 
@@ -514,14 +615,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     <h3>
                         ${
-                            products.length === 0
+                            noProducts
                                 ? "Our Product Catalogue Is Growing"
                                 : "No Products Found"
                         }
                     </h3>
 
                     <p>
-                        ${message}
+                        ${
+                            noProducts
+                                ? "New products will appear here as they become available."
+                                : "No products match your search. Try another name or category."
+                        }
                     </p>
 
                     <button
@@ -538,26 +643,17 @@ document.addEventListener("DOMContentLoaded", function () {
             `;
 
 
-            document
-                .querySelector("#reset-product-search")
+            document.querySelector("#reset-product-search")
                 ?.addEventListener("click", function () {
 
                     activeCategory = "all";
-
                     searchTerm = "";
-
                     sortMethod = "default";
 
-                    if (searchInput) {
-                        searchInput.value = "";
-                    }
-
-                    if (sortSelect) {
-                        sortSelect.value = "default";
-                    }
+                    if (searchInput) searchInput.value = "";
+                    if (sortSelect) sortSelect.value = "default";
 
                     updateFilterButtons();
-
                     renderProducts();
 
                 });
@@ -567,97 +663,93 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
-        // Display product cards
+        // Product cards
 
-        productGrid.innerHTML =
-            filteredProducts.map(
-                function (product) {
+        productGrid.innerHTML = filteredProducts.map(
+            function (product) {
 
-                    const safeName =
-                        escapeHTML(product.name);
+                const safeName = escapeHTML(product.name);
+                const safeDescription = escapeHTML(product.description);
+                const safeCategory = escapeHTML(product.category);
 
-                    const safeDescription =
-                        escapeHTML(product.description);
+                const imageMarkup = product.image
+                    ? `
+                        <img
+                            class="product-image"
+                            src="${escapeHTML(product.image)}"
+                            alt="${safeName}"
+                            loading="lazy">
+                      `
+                    : `
+                        <div
+                            class="product-image"
+                            role="img"
+                            aria-label="${safeName}">
+                            ${safeName}
+                        </div>
+                      `;
 
-                    const safeCategory =
-                        escapeHTML(product.category);
 
-                    const imageMarkup = product.image
-                        ? `
-                            <img
-                                class="product-image"
-                                src="${escapeHTML(product.image)}"
-                                alt="${safeName}"
-                                loading="lazy">
-                          `
-                        : `
-                            <div class="product-image"
-                                 role="img"
-                                 aria-label="${safeName}">
+                return `
+
+                    <article class="product-card tmet-reveal">
+
+                        ${imageMarkup}
+
+                        <div class="product-details">
+
+                            <span class="product-category">
+                                ${safeCategory}
+                            </span>
+
+                            <h3 class="product-name">
                                 ${safeName}
-                            </div>
-                          `;
+                            </h3>
 
+                            <p class="product-description">
+                                ${safeDescription}
+                            </p>
 
-                    return `
-
-                        <article class="product-card">
-
-                            ${imageMarkup}
-
-                            <div class="product-details">
-
-                                <span class="product-category">
-                                    ${safeCategory}
-                                </span>
-
-                                <h3 class="product-name">
-                                    ${safeName}
-                                </h3>
-
-                                <p class="product-description">
-                                    ${safeDescription}
-                                </p>
-
-                                <div class="product-price">
-                                    ${formatMoney(product.price)}
-                                </div>
-
-                                <button
-                                    type="button"
-                                    class="add-to-cart"
-                                    data-add-to-cart="${escapeHTML(product.id)}">
-
-                                    Add to Cart
-
-                                </button>
-
+                            <div class="product-price">
+                                ${formatMoney(product.price)}
                             </div>
 
-                        </article>
+                            <button
+                                type="button"
+                                class="add-to-cart"
+                                data-add-to-cart="${escapeHTML(product.id)}">
 
-                    `;
+                                Add to Cart
 
-                }
-            ).join("");
+                            </button>
+
+                        </div>
+
+                    </article>
+
+                `;
+
+            }
+        ).join("");
 
 
-        // Connect newly created product buttons
+        // Animate new product cards
 
-        productGrid
-            .querySelectorAll("[data-add-to-cart]")
+        observeRevealElements(
+            productGrid.querySelectorAll(".product-card")
+        );
+
+
+        // Add-to-cart buttons
+
+        productGrid.querySelectorAll("[data-add-to-cart]")
             .forEach(function (button) {
 
-                button.addEventListener(
-                    "click",
-                    function () {
+                button.addEventListener("click", function () {
 
-                        addToCart(
-                            button.dataset.addToCart
-                        );
+                    addToCart(button.dataset.addToCart);
 
-                    }
-                );
+                });
 
             });
 
@@ -665,131 +757,98 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =================================================
-       12. PRODUCT SEARCH
+       14. PRODUCT SEARCH
     ================================================= */
 
-    if (searchInput) {
+    searchInput?.addEventListener("input", function () {
 
-        searchInput.addEventListener(
-            "input",
-            function () {
+        searchTerm = searchInput.value.trim().toLowerCase();
 
-                searchTerm =
-                    searchInput.value
-                        .trim()
-                        .toLowerCase();
+        renderProducts();
 
-                renderProducts();
-
-            }
-        );
-
-    }
+    });
 
 
     /* =================================================
-       13. PRODUCT SORTING
+       15. PRODUCT SORTING
     ================================================= */
 
-    if (sortSelect) {
+    sortSelect?.addEventListener("change", function () {
 
-        sortSelect.addEventListener(
-            "change",
-            function () {
+        sortMethod = sortSelect.value;
 
-                sortMethod = sortSelect.value;
+        renderProducts();
 
-                renderProducts();
-
-            }
-        );
-
-    }
+    });
 
 
     /* =================================================
-       14. CATEGORY FILTERING
+       16. CATEGORY FILTERING
     ================================================= */
 
     function updateFilterButtons() {
 
-        filterButtons.forEach(
-            function (button) {
+        filterButtons.forEach(function (button) {
 
-                button.classList.toggle(
-                    "active",
-                    button.dataset.filter === activeCategory
-                );
+            button.classList.toggle(
+                "active",
+                button.dataset.filter === activeCategory
+            );
 
-            }
-        );
+        });
 
     }
 
 
-    filterButtons.forEach(
-        function (button) {
+    filterButtons.forEach(function (button) {
 
-            button.addEventListener(
-                "click",
-                function () {
+        button.addEventListener("click", function () {
 
-                    activeCategory =
-                        button.dataset.filter;
+            activeCategory = button.dataset.filter;
 
-                    updateFilterButtons();
+            updateFilterButtons();
 
-                    renderProducts();
+            renderProducts();
 
-                }
-            );
+        });
 
-        }
-    );
+    });
 
 
-    // Category cards also control the product filter
+    categoryButtons.forEach(function (button) {
 
-    categoryButtons.forEach(
-        function (button) {
+        button.addEventListener("click", function () {
 
-            button.addEventListener(
-                "click",
-                function () {
+            activeCategory = button.dataset.categoryLink;
 
-                    activeCategory =
-                        button.dataset.categoryLink;
+            updateFilterButtons();
 
-                    updateFilterButtons();
+            renderProducts();
 
-                    renderProducts();
+            document.querySelector("#products")?.scrollIntoView({
+                behavior: "smooth"
+            });
 
-                    document
-                        .querySelector("#products")
-                        ?.scrollIntoView({
-                            behavior: "smooth"
-                        });
+        });
 
-                }
-            );
-
-        }
-    );
+    });
 
 
     /* =================================================
-       15. CART STORAGE
+       17. CART STORAGE
     ================================================= */
 
     function loadCart() {
 
         try {
 
-            const savedCart =
-                localStorage.getItem("tmet-shopping-cart");
+            const savedCart = localStorage.getItem(
+                "tmet-shopping-cart"
+            );
 
-            const parsedCart =
-                savedCart ? JSON.parse(savedCart) : [];
+            const parsedCart = savedCart
+                ? JSON.parse(savedCart)
+                : [];
 
             if (!Array.isArray(parsedCart)) {
                 return [];
@@ -799,10 +858,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 return item &&
                     products.some(function (product) {
-
-                        return String(product.id) ===
-                            String(item.id);
-
+                        return String(product.id) === String(item.id);
                     }) &&
                     Number.isInteger(item.quantity) &&
                     item.quantity > 0;
@@ -813,10 +869,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         catch (error) {
 
-            console.warn(
-                "Unable to load saved cart.",
-                error
-            );
+            console.warn("Unable to load saved cart.", error);
 
             return [];
 
@@ -838,10 +891,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         catch (error) {
 
-            console.warn(
-                "Unable to save shopping cart.",
-                error
-            );
+            console.warn("Unable to save shopping cart.", error);
 
         }
 
@@ -849,39 +899,31 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =================================================
-       16. ADD PRODUCTS TO CART
+       18. ADD PRODUCTS TO CART
     ================================================= */
 
     function addToCart(productId) {
 
-        const product =
-            getProduct(productId);
+        const product = getProduct(productId);
 
         if (!product) return;
 
+        const existingItem = cart.find(function (item) {
 
-        const existingItem =
-            cart.find(function (item) {
+            return String(item.id) === String(productId);
 
-                return String(item.id) ===
-                    String(productId);
-
-            });
+        });
 
 
         if (existingItem) {
-
             existingItem.quantity += 1;
-
         }
 
         else {
-
             cart.push({
                 id: product.id,
                 quantity: 1
             });
-
         }
 
 
@@ -895,36 +937,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =================================================
-       17. CHANGE CART QUANTITIES
+       19. CHANGE CART QUANTITIES
     ================================================= */
 
     function changeQuantity(productId, amount) {
 
-        const item =
-            cart.find(function (cartItem) {
+        const item = cart.find(function (cartItem) {
 
-                return String(cartItem.id) ===
-                    String(productId);
+            return String(cartItem.id) === String(productId);
 
-            });
+        });
 
         if (!item) return;
 
-
         item.quantity += amount;
-
 
         if (item.quantity <= 0) {
 
             cart = cart.filter(function (cartItem) {
-
-                return String(cartItem.id) !==
-                    String(productId);
-
+                return String(cartItem.id) !== String(productId);
             });
 
         }
-
 
         saveCart();
 
@@ -934,15 +968,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =================================================
-       18. REMOVE CART PRODUCTS
+       20. REMOVE CART PRODUCTS
     ================================================= */
 
     function removeFromCart(productId) {
 
         cart = cart.filter(function (item) {
 
-            return String(item.id) !==
-                String(productId);
+            return String(item.id) !== String(productId);
 
         });
 
@@ -954,66 +987,48 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =================================================
-       19. RENDER SHOPPING CART
+       21. RENDER SHOPPING CART
     ================================================= */
 
     function renderCart() {
 
         if (!cartItemsContainer) return;
 
-
         let totalQuantity = 0;
-
         let totalPrice = 0;
 
 
         cart.forEach(function (item) {
 
-            const product =
-                getProduct(item.id);
+            const product = getProduct(item.id);
 
             if (!product) return;
 
             totalQuantity += item.quantity;
-
-            totalPrice +=
-                product.price * item.quantity;
+            totalPrice += product.price * item.quantity;
 
         });
 
 
         if (cartCount) {
-
-            cartCount.textContent =
-                totalQuantity;
-
+            cartCount.textContent = totalQuantity;
         }
-
 
         if (cartTotal) {
-
-            cartTotal.textContent =
-                formatMoney(totalPrice);
-
+            cartTotal.textContent = formatMoney(totalPrice);
         }
 
-
         if (checkoutButton) {
-
-            checkoutButton.disabled =
-                cart.length === 0;
-
+            checkoutButton.disabled = cart.length === 0;
         }
 
 
         if (cart.length === 0) {
 
             cartItemsContainer.innerHTML = `
-
                 <p class="cart-empty">
                     Your cart is currently empty.
                 </p>
-
             `;
 
             return;
@@ -1021,133 +1036,106 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
-        cartItemsContainer.innerHTML =
-            cart.map(function (item) {
+        cartItemsContainer.innerHTML = cart.map(function (item) {
 
-                const product =
-                    getProduct(item.id);
+            const product = getProduct(item.id);
 
-                if (!product) return "";
+            if (!product) return "";
 
+            return `
 
-                return `
+                <div class="cart-item">
 
-                    <div class="cart-item">
+                    <div>
 
-                        <div>
+                        <h4>
+                            ${escapeHTML(product.name)}
+                        </h4>
 
-                            <h4>
-                                ${escapeHTML(product.name)}
-                            </h4>
+                        <p>
+                            ${formatMoney(product.price)}
+                        </p>
 
-                            <p>
-                                ${formatMoney(product.price)}
-                            </p>
+                        <div class="cart-item-controls">
 
-                            <div class="cart-item-controls">
+                            <button
+                                type="button"
+                                data-quantity-minus="${escapeHTML(product.id)}"
+                                aria-label="Decrease quantity">
+                                −
+                            </button>
 
-                                <button
-                                    type="button"
-                                    data-quantity-minus="${escapeHTML(product.id)}"
-                                    aria-label="Decrease quantity">
+                            <span>
+                                ${item.quantity}
+                            </span>
 
-                                    −
+                            <button
+                                type="button"
+                                data-quantity-plus="${escapeHTML(product.id)}"
+                                aria-label="Increase quantity">
+                                +
+                            </button>
 
-                                </button>
-
-                                <span>
-                                    ${item.quantity}
-                                </span>
-
-                                <button
-                                    type="button"
-                                    data-quantity-plus="${escapeHTML(product.id)}"
-                                    aria-label="Increase quantity">
-
-                                    +
-
-                                </button>
-
-                                <button
-                                    type="button"
-                                    data-remove-item="${escapeHTML(product.id)}"
-                                    aria-label="Remove product">
-
-                                    Remove
-
-                                </button>
-
-                            </div>
+                            <button
+                                type="button"
+                                data-remove-item="${escapeHTML(product.id)}"
+                                aria-label="Remove product">
+                                Remove
+                            </button>
 
                         </div>
 
-                        <strong>
-                            ${formatMoney(
-                                product.price * item.quantity
-                            )}
-                        </strong>
-
                     </div>
 
-                `;
+                    <strong>
+                        ${formatMoney(product.price * item.quantity)}
+                    </strong>
 
-            }).join("");
+                </div>
+
+            `;
+
+        }).join("");
 
 
-        // Connect quantity and remove buttons
-
-        cartItemsContainer
-            .querySelectorAll("[data-quantity-minus]")
+        cartItemsContainer.querySelectorAll("[data-quantity-minus]")
             .forEach(function (button) {
 
-                button.addEventListener(
-                    "click",
-                    function () {
+                button.addEventListener("click", function () {
 
-                        changeQuantity(
-                            button.dataset.quantityMinus,
-                            -1
-                        );
+                    changeQuantity(
+                        button.dataset.quantityMinus,
+                        -1
+                    );
 
-                    }
-                );
+                });
 
             });
 
 
-        cartItemsContainer
-            .querySelectorAll("[data-quantity-plus]")
+        cartItemsContainer.querySelectorAll("[data-quantity-plus]")
             .forEach(function (button) {
 
-                button.addEventListener(
-                    "click",
-                    function () {
+                button.addEventListener("click", function () {
 
-                        changeQuantity(
-                            button.dataset.quantityPlus,
-                            1
-                        );
+                    changeQuantity(
+                        button.dataset.quantityPlus,
+                        1
+                    );
 
-                    }
-                );
+                });
 
             });
 
 
-        cartItemsContainer
-            .querySelectorAll("[data-remove-item]")
+        cartItemsContainer.querySelectorAll("[data-remove-item]")
             .forEach(function (button) {
 
-                button.addEventListener(
-                    "click",
-                    function () {
+                button.addEventListener("click", function () {
 
-                        removeFromCart(
-                            button.dataset.removeItem
-                        );
+                    removeFromCart(button.dataset.removeItem);
 
-                    }
-                );
+                });
 
             });
 
@@ -1155,7 +1143,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =================================================
-       20. OPEN AND CLOSE SHOPPING CART
+       22. OPEN AND CLOSE SHOPPING CART
     ================================================= */
 
     function openCart() {
@@ -1164,10 +1152,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         cartOverlay.classList.add("active");
 
-        cartOverlay.setAttribute(
-            "aria-hidden",
-            "false"
-        );
+        cartOverlay.setAttribute("aria-hidden", "false");
 
         document.body.style.overflow = "hidden";
 
@@ -1182,10 +1167,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         cartOverlay.classList.remove("active");
 
-        cartOverlay.setAttribute(
-            "aria-hidden",
-            "true"
-        );
+        cartOverlay.setAttribute("aria-hidden", "true");
 
         document.body.style.overflow = "";
 
@@ -1194,49 +1176,34 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    openCartButton?.addEventListener(
-        "click",
-        openCart
-    );
+    openCartButton?.addEventListener("click", openCart);
+
+    closeCartButton?.addEventListener("click", closeCart);
 
 
-    closeCartButton?.addEventListener(
-        "click",
-        closeCart
-    );
+    cartOverlay?.addEventListener("click", function (event) {
 
-
-    cartOverlay?.addEventListener(
-        "click",
-        function (event) {
-
-            if (event.target === cartOverlay) {
-                closeCart();
-            }
-
+        if (event.target === cartOverlay) {
+            closeCart();
         }
-    );
+
+    });
 
 
-    document.addEventListener(
-        "keydown",
-        function (event) {
+    document.addEventListener("keydown", function (event) {
 
-            if (
-                event.key === "Escape" &&
-                cartOverlay?.classList.contains("active")
-            ) {
-
-                closeCart();
-
-            }
-
+        if (
+            event.key === "Escape" &&
+            cartOverlay?.classList.contains("active")
+        ) {
+            closeCart();
         }
-    );
+
+    });
 
 
     /* =================================================
-       21. WHATSAPP CHECKOUT
+       23. WHATSAPP CHECKOUT
     ================================================= */
 
     function checkout() {
@@ -1253,7 +1220,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (!isValidWhatsAppNumber()) {
 
             alert(
-                "The store's WhatsApp number has not been configured. Please configure it in the TMET_CONFIG section of script.js before accepting orders."
+                "The store's WhatsApp number has not been configured yet."
             );
 
             return;
@@ -1271,40 +1238,32 @@ document.addEventListener("DOMContentLoaded", function () {
 
         cart.forEach(function (item, index) {
 
-            const product =
-                getProduct(item.id);
+            const product = getProduct(item.id);
 
             if (!product) return;
 
-
-            const subtotal =
-                product.price * item.quantity;
+            const subtotal = product.price * item.quantity;
 
             orderTotal += subtotal;
-
 
             message +=
                 (index + 1) + ". " +
                 product.name + "\n";
 
             message +=
-                "Quantity: " +
-                item.quantity + "\n";
+                "Quantity: " + item.quantity + "\n";
 
             message +=
-                "Unit Price: " +
-                formatMoney(product.price) + "\n";
+                "Unit Price: " + formatMoney(product.price) + "\n";
 
             message +=
-                "Subtotal: " +
-                formatMoney(subtotal) + "\n\n";
+                "Subtotal: " + formatMoney(subtotal) + "\n\n";
 
         });
 
 
         message +=
-            "ESTIMATED TOTAL: " +
-            formatMoney(orderTotal) + "\n\n";
+            "ESTIMATED TOTAL: " + formatMoney(orderTotal) + "\n\n";
 
         message +=
             "Please confirm product availability, final pricing and delivery arrangements.\n\n";
@@ -1318,173 +1277,221 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    checkoutButton?.addEventListener(
-        "click",
-        checkout
-    );
+    checkoutButton?.addEventListener("click", checkout);
 
 
     /* =================================================
-       22. CONTACT FORM
+       24. CONTACT FORM
     ================================================= */
 
     if (contactForm) {
 
-        contactForm.addEventListener(
-            "submit",
-            function (event) {
+        contactForm.addEventListener("submit", function (event) {
 
-                event.preventDefault();
+            event.preventDefault();
 
+            if (!contactForm.checkValidity()) {
 
-                if (!contactForm.checkValidity()) {
+                contactForm.reportValidity();
 
-                    contactForm.reportValidity();
-
-                    return;
-
-                }
-
-
-                const name =
-                    document.querySelector(
-                        "#customer-name"
-                    )?.value.trim();
-
-                const email =
-                    document.querySelector(
-                        "#customer-email"
-                    )?.value.trim();
-
-                const enquiry =
-                    document.querySelector(
-                        "#enquiry-type"
-                    )?.value;
-
-                const message =
-                    document.querySelector(
-                        "#customer-message"
-                    )?.value.trim();
-
-
-                if (!name || !email || !enquiry || !message) {
-
-                    alert(
-                        "Please complete all the required fields."
-                    );
-
-                    return;
-
-                }
-
-
-                const whatsappMessage =
-
-                    "Hello TMET Technologies!\n\n" +
-
-                    "BUSINESS ENQUIRY\n\n" +
-
-                    "Name: " + name + "\n" +
-
-                    "Email: " + email + "\n" +
-
-                    "Enquiry: " + enquiry + "\n\n" +
-
-                    "Message:\n" + message;
-
-
-                if (
-                    sendWhatsAppMessage(
-                        whatsappMessage
-                    )
-                ) {
-
-                    showFeedback(
-                        document.querySelector(
-                            "#contact-feedback"
-                        ),
-                        "Your enquiry is ready to send through WhatsApp.",
-                        "success"
-                    );
-
-                }
+                return;
 
             }
-        );
+
+
+            const name = document.querySelector("#customer-name")?.value.trim();
+            const email = document.querySelector("#customer-email")?.value.trim();
+            const enquiry = document.querySelector("#enquiry-type")?.value;
+            const message = document.querySelector("#customer-message")?.value.trim();
+
+
+            if (!name || !email || !enquiry || !message) {
+
+                alert("Please complete all the required fields.");
+
+                return;
+
+            }
+
+
+            const whatsappMessage =
+
+                "Hello TMET Technologies!\n\n" +
+                "BUSINESS ENQUIRY\n\n" +
+                "Name: " + name + "\n" +
+                "Email: " + email + "\n" +
+                "Enquiry: " + enquiry + "\n\n" +
+                "Message:\n" + message;
+
+
+            if (sendWhatsAppMessage(whatsappMessage)) {
+
+                showFeedback(
+                    document.querySelector("#contact-feedback"),
+                    "Your enquiry is ready to send through WhatsApp.",
+                    "success"
+                );
+
+            }
+
+        });
 
     }
 
 
     /* =================================================
-       23. NEWSLETTER FORM
+       25. NEWSLETTER FORM
     ================================================= */
 
     if (newsletterForm) {
 
-        newsletterForm.addEventListener(
-            "submit",
-            function (event) {
+        newsletterForm.addEventListener("submit", function (event) {
 
-                event.preventDefault();
+            event.preventDefault();
 
+            if (!newsletterForm.checkValidity()) {
 
-                if (!newsletterForm.checkValidity()) {
+                newsletterForm.reportValidity();
 
-                    newsletterForm.reportValidity();
-
-                    return;
-
-                }
-
-
-                showFeedback(
-                    document.querySelector(
-                        "#newsletter-feedback"
-                    ),
-                    "Newsletter subscriptions are not connected yet. Please check back soon.",
-                    "error"
-                );
+                return;
 
             }
-        );
+
+            showFeedback(
+                document.querySelector("#newsletter-feedback"),
+                "Newsletter subscriptions are not connected yet. Please check back soon.",
+                "error"
+            );
+
+        });
 
     }
 
 
     /* =================================================
-       24. FAQ INTERACTION
+       26. FAQ INTERACTION
     ================================================= */
 
-    const faqItems =
-        document.querySelectorAll(".faq-item");
-
+    const faqItems = document.querySelectorAll(".faq-item");
 
     faqItems.forEach(function (item) {
 
-        item.addEventListener(
-            "toggle",
-            function () {
+        item.addEventListener("toggle", function () {
 
-                if (!item.open) return;
+            if (!item.open) return;
 
-                faqItems.forEach(function (otherItem) {
+            faqItems.forEach(function (otherItem) {
 
-                    if (otherItem !== item) {
+                if (otherItem !== item) {
+                    otherItem.open = false;
+                }
 
-                        otherItem.open = false;
+            });
 
-                    }
-
-                });
-
-            }
-        );
+        });
 
     });
 
 
     /* =================================================
-       25. INITIALIZE WEBSITE
+       27. BOTTOM NAVIGATION
+    ================================================= */
+
+    const bottomNavigation = document.querySelector(
+        ".bottom-navigation"
+    );
+
+    if (bottomNavigation) {
+
+        const bottomNavItems = bottomNavigation.querySelectorAll(
+            ".bottom-nav-item"
+        );
+
+
+        function setActiveBottomNavigation() {
+
+            const currentPosition = window.scrollY + 160;
+
+            let currentSection = "";
+
+            document.querySelectorAll("main section[id]").forEach(
+                function (section) {
+
+                    if (currentPosition >= section.offsetTop) {
+                        currentSection = section.id;
+                    }
+
+                }
+            );
+
+
+            bottomNavItems.forEach(function (item) {
+
+                const target = item.getAttribute("href");
+
+                const sectionId = target?.startsWith("#")
+                    ? target.substring(1)
+                    : "";
+
+                const isActive =
+                    sectionId === currentSection;
+
+                item.classList.toggle("active", isActive);
+
+                if (isActive) {
+                    item.setAttribute("aria-current", "page");
+                }
+
+                else {
+                    item.removeAttribute("aria-current");
+                }
+
+            });
+
+        }
+
+
+        bottomNavItems.forEach(function (item) {
+
+            item.addEventListener("click", function (event) {
+
+                const target = item.getAttribute("href");
+
+                if (!target || !target.startsWith("#")) {
+                    return;
+                }
+
+                const destination = document.querySelector(target);
+
+                if (!destination) {
+                    return;
+                }
+
+                event.preventDefault();
+
+                destination.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+
+            });
+
+        });
+
+
+        window.addEventListener(
+            "scroll",
+            setActiveBottomNavigation,
+            { passive: true }
+        );
+
+        setActiveBottomNavigation();
+
+    }
+
+
+    /* =================================================
+       28. INITIALIZE WEBSITE
     ================================================= */
 
     updateFilterButtons();
@@ -1497,9 +1504,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     updateBackToTop();
 
+    initializeScrollAnimations();
+
 
     console.log(
-        "TMET Technologies online store is ready."
+        "TMET Technologies online store Version 3.0 is ready."
     );
 
 });
