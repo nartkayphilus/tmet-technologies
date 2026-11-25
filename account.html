@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Account | TMET Technologies</title>
+
+    <meta name="description" content="Access your TMET Technologies customer account, manage your profile and view your shopping activities.">
+
+    <meta name="theme-color" content="#071a35">
+
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+
+    <!-- ANNOUNCEMENT BAR -->
+    <div class="announcement-bar">
+        <p>Welcome to TMET Technologies. Your trusted technology store.</p>
+    </div>
+
+
+    <!-- HEADER -->
+    <header class="site-header">
+
+        <div class="header-container">
+
+            <a href="index.html" class="brand">
+                <span class="brand-name">TMET</span>
+                <span class="brand-tagline">TECHNOLOGIES</span>
+            </a>
+
+            <button
+                class="menu-toggle"
+                id="menu-toggle"
+                aria-label="Open navigation menu"
+                aria-expanded="false"
+            >
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <nav class="main-navigation" id="main-navigation">
+
+                <a href="index.html">Home</a>
+                <a href="products.html">Products</a>
+                <a href="categories.html">Categories</a>
+
+                <a href="account.html" class="active" aria-current="page">
+                    Account
+                </a>
+
+                <a href="wallet.html">Wallet</a>
+
+            </nav>
+
+            <div class="header-actions">
+
+                <a href="products.html" class="search-focus-button">
+                    Search
+                </a>
+
+                <a href="cart.html" class="cart-button">
+                    Cart
+                    <span id="cart-count">0</span>
+                </a>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- MAIN CONTENT -->
+    <main>
+
+        <!-- ACCOUNT INTRODUCTION -->
+        <section class="page-hero">
+
+            <div class="container">
+
+                <p class="section-label">CUSTOMER ACCOUNT</p>
+
+                <h1>Welcome to Your Account</h1>
+
+                <p>
+                    Sign in to access your customer account or create
+                    a new account to get started with TMET Technologies.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- ACCOUNT SECTION -->
+        <section class="account-section">
+
+            <div class="container">
+
+                <div class="account-layout">
+
+
+                    <!-- SIGN IN -->
+                    <div class="account-card">
+
+                        <div class="account-card-heading">
+
+                            <p class="section-label">EXISTING CUSTOMERS</p>
+
+                            <h2>Sign In</h2>
+
+                            <p>
+                                Already have an account?
+                                Enter your details below.
+                            </p>
+
+                        </div>
+
+
+                        <form id="login-form">
+
+                            <div class="form-group">
+
+                                <label for="login-email">
+                                    Email Address
+                                </label>
+
+                                <input
+                                    type="email"
+                                    id="login-email"
+                                    name="email"
+                                    placeholder="Enter your email address"
+                                    autocomplete="email"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="login-password">
+                                    Password
+                                </label>
+
+                                <input
+                                    type="password"
+                                    id="login-password"
+                                    name="password"
+                                    placeholder="Enter your password"
+                                    autocomplete="current-password"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="account-form-options">
+
+                                <label class="remember-option">
+
+                                    <input
+                                        type="checkbox"
+                                        name="remember"
+                                    >
+
+                                    Remember me
+
+                                </label>
+
+                                <a href="#forgot-password">
+                                    Forgot password?
+                                </a>
+
+                            </div>
+
+
+                            <button
+                                type="submit"
+                                class="primary-button"
+                            >
+                                Sign In
+                            </button>
+
+                            <p class="account-form-note">
+                                Account sign-in will be activated
+                                after secure backend integration.
+                            </p>
+
+                        </form>
+
+                    </div>
+
+
+                    <!-- REGISTRATION -->
+                    <div class="account-card">
+
+                        <div class="account-card-heading">
+
+                            <p class="section-label">NEW CUSTOMERS</p>
+
+                            <h2>Create an Account</h2>
+
+                            <p>
+                                Join TMET Technologies and create
+                                your customer profile.
+                            </p>
+
+                        </div>
+
+
+                        <form id="register-form">
+
+                            <div class="form-group">
+
+                                <label for="register-name">
+                                    Full Name
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="register-name"
+                                    name="full-name"
+                                    placeholder="Enter your full name"
+                                    autocomplete="name"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="register-email">
+                                    Email Address
+                                </label>
+
+                                <input
+                                    type="email"
+                                    id="register-email"
+                                    name="email"
+                                    placeholder="Enter your email address"
+                                    autocomplete="email"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="register-phone">
+                                    Phone Number
+                                </label>
+
+                                <input
+                                    type="tel"
+                                    id="register-phone"
+                                    name="phone"
+                                    placeholder="Enter your phone number"
+                                    autocomplete="tel"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="register-password">
+                                    Create Password
+                                </label>
+
+                                <input
+                                    type="password"
+                                    id="register-password"
+                                    name="password"
+                                    placeholder="Create a password"
+                                    autocomplete="new-password"
+                                    minlength="8"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="confirm-password">
+                                    Confirm Password
+                                </label>
+
+                                <input
+                                    type="password"
+                                    id="confirm-password"
+                                    name="confirm-password"
+                                    placeholder="Confirm your password"
+                                    autocomplete="new-password"
+                                    minlength="8"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="register-country">
+                                    Country
+                                </label>
+
+                                <select
+                                    id="register-country"
+                                    name="country"
+                                    required
+                                >
+
+                                    <option value="GH" selected>
+                                        Ghana
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <label class="terms-option">
+
+                                <input
+                                    type="checkbox"
+                                    name="terms"
+                                    required
+                                >
+
+                                I agree to the terms and conditions
+                                of TMET Technologies.
+
+                            </label>
+
+
+                            <button
+                                type="submit"
+                                class="primary-button"
+                            >
+                                Create Account
+                            </button>
+
+                            <p class="account-form-note">
+                                Customer registration will be activated
+                                after secure backend integration.
+                            </p>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- CUSTOMER ACCOUNT FEATURES -->
+        <section class="account-benefits">
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <p class="section-label">CUSTOMER EXPERIENCE</p>
+
+                    <h2>Your Account, Your Shopping Experience</h2>
+
+                    <p>
+                        Your future TMET customer account will bring
+                        your shopping activities together in one place.
+                    </p>
+
+                </div>
+
+
+                <div class="account-benefits-grid">
+
+                    <div class="account-benefit-card">
+
+                        <div class="account-benefit-icon">👤</div>
+
+                        <h3>Personal Profile</h3>
+
+                        <p>
+                            Manage your personal information
+                            and account details.
+                        </p>
+
+                    </div>
+
+
+                    <div class="account-benefit-card">
+
+                        <div class="account-benefit-icon">📦</div>
+
+                        <h3>Order History</h3>
+
+                        <p>
+                            View your purchases and follow
+                            your order history.
+                        </p>
+
+                    </div>
+
+
+                    <div class="account-benefit-card">
+
+                        <div class="account-benefit-icon">💳</div>
+
+                        <h3>Customer Wallet</h3>
+
+                        <p>
+                            Use your available wallet balance
+                            to purchase products from TMET.
+                        </p>
+
+                    </div>
+
+
+                    <div class="account-benefit-card">
+
+                        <div class="account-benefit-icon">🚚</div>
+
+                        <h3>Delivery Details</h3>
+
+                        <p>
+                            Manage your delivery information
+                            and follow your orders.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- CUSTOMER SUPPORT -->
+        <section class="shopping-support">
+
+            <div class="container">
+
+                <div class="support-content">
+
+                    <h2>Need Assistance?</h2>
+
+                    <p>
+                        Contact our customer support team
+                        if you need help with your account.
+                    </p>
+
+                    <a href="contact.html" class="primary-button">
+                        Contact Support
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+
+        <div class="container">
+
+            <div class="footer-content">
+
+                <div class="footer-brand">
+
+                    <a href="index.html" class="brand">
+                        <span class="brand-name">TMET</span>
+                        <span class="brand-tagline">TECHNOLOGIES</span>
+                    </a>
+
+                    <p>
+                        Your trusted destination for technology products,
+                        ICT equipment and accessories.
+                    </p>
+
+                </div>
+
+
+                <div class="footer-links">
+
+                    <h3>Quick Links</h3>
+
+                    <a href="index.html">Home</a>
+                    <a href="products.html">Products</a>
+                    <a href="categories.html">Categories</a>
+                    <a href="account.html">My Account</a>
+                    <a href="wallet.html">My Wallet</a>
+
+                </div>
+
+
+                <div class="footer-links">
+
+                    <h3>Customer Services</h3>
+
+                    <a href="cart.html">Shopping Cart</a>
+                    <a href="checkout.html">Checkout</a>
+                    <a href="contact.html">Contact Us</a>
+
+                </div>
+
+            </div>
+
+
+            <div class="footer-bottom">
+
+                <p>
+                    &copy; <span id="current-year"></span>
+                    TMET Technologies. All rights reserved.
+                </p>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <!-- FIXED BOTTOM NAVIGATION -->
+    <nav class="bottom-navigation" aria-label="Main navigation">
+
+        <a href="index.html" class="bottom-nav-item">
+            <span class="bottom-nav-icon">⌂</span>
+            <span>Home</span>
+        </a>
+
+        <a href="products.html" class="bottom-nav-item">
+            <span class="bottom-nav-icon">▦</span>
+            <span>Products</span>
+        </a>
+
+        <a href="categories.html" class="bottom-nav-item">
+            <span class="bottom-nav-icon">☷</span>
+            <span>Categories</span>
+        </a>
+
+        <a
+            href="account.html"
+            class="bottom-nav-item active"
+            aria-current="page"
+        >
+            <span class="bottom-nav-icon">♙</span>
+            <span>Account</span>
+        </a>
+
+        <a href="wallet.html" class="bottom-nav-item">
+            <span class="bottom-nav-icon">▣</span>
+            <span>Wallet</span>
+        </a>
+
+    </nav>
+
+</body>
+</html>
