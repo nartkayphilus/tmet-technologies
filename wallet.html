@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Wallet | TMET Technologies</title>
+
+    <meta name="description" content="View your TMET Technologies wallet, available balance and wallet transactions.">
+
+    <meta name="theme-color" content="#071a35">
+
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+
+    <!-- ANNOUNCEMENT BAR -->
+    <div class="announcement-bar">
+        <p>Welcome to TMET Technologies. Your trusted technology store.</p>
+    </div>
+
+
+    <!-- HEADER -->
+    <header class="site-header">
+
+        <div class="header-container">
+
+            <a href="index.html" class="brand">
+                <span class="brand-name">TMET</span>
+                <span class="brand-tagline">TECHNOLOGIES</span>
+            </a>
+
+            <button
+                class="menu-toggle"
+                id="menu-toggle"
+                aria-label="Open navigation menu"
+                aria-expanded="false"
+            >
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <nav class="main-navigation" id="main-navigation">
+
+                <a href="index.html">Home</a>
+                <a href="products.html">Products</a>
+                <a href="categories.html">Categories</a>
+                <a href="account.html">Account</a>
+
+                <a href="wallet.html" class="active" aria-current="page">
+                    Wallet
+                </a>
+
+            </nav>
+
+            <div class="header-actions">
+
+                <a href="products.html" class="search-focus-button">
+                    Search
+                </a>
+
+                <a href="cart.html" class="cart-button">
+                    Cart
+                    <span id="cart-count">0</span>
+                </a>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- MAIN CONTENT -->
+    <main>
+
+        <!-- PAGE INTRODUCTION -->
+        <section class="page-hero">
+
+            <div class="container">
+
+                <p class="section-label">TMET CUSTOMER WALLET</p>
+
+                <h1>My Wallet</h1>
+
+                <p>
+                    Manage your TMET wallet balance and use your
+                    available funds to shop for products.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- WALLET DASHBOARD -->
+        <section class="wallet-section">
+
+            <div class="container">
+
+                <div class="wallet-dashboard">
+
+
+                    <!-- BALANCE CARD -->
+                    <div class="wallet-balance-card">
+
+                        <div class="wallet-balance-top">
+
+                            <div>
+                                <p>Available Wallet Balance</p>
+
+                                <h2>GHS 0.00</h2>
+                            </div>
+
+                            <div class="wallet-symbol">
+                                ₵
+                            </div>
+
+                        </div>
+
+
+                        <div class="wallet-card-footer">
+
+                            <span>TMET CUSTOMER WALLET</span>
+
+                            <span>Ghana Cedis (GHS)</span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- WALLET ACTIONS -->
+                    <div class="wallet-actions-card">
+
+                        <h2>Wallet Actions</h2>
+
+                        <p>
+                            Add funds to your wallet or use your
+                            available balance when shopping.
+                        </p>
+
+
+                        <div class="wallet-action-buttons">
+
+                            <button
+                                type="button"
+                                class="primary-button"
+                                disabled
+                            >
+                                Add Funds
+                            </button>
+
+                            <a
+                                href="products.html"
+                                class="secondary-button"
+                            >
+                                Shop Products
+                            </a>
+
+                        </div>
+
+                        <p class="wallet-status-note">
+                            Wallet funding will be activated after
+                            secure payment integration.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- TRANSACTION HISTORY -->
+        <section class="wallet-transactions-section">
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <p class="section-label">WALLET ACTIVITY</p>
+
+                        <h2>Transaction History</h2>
+
+                        <p>
+                            Review your wallet funding and purchases.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="transaction-card">
+
+                    <div class="transaction-header">
+
+                        <h3>Recent Transactions</h3>
+
+                    </div>
+
+
+                    <div class="transaction-empty-state">
+
+                        <div class="transaction-empty-icon">
+                            ◷
+                        </div>
+
+                        <h3>No Transactions Yet</h3>
+
+                        <p>
+                            Your wallet transactions will appear
+                            here when your wallet becomes active.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- WALLET RULES -->
+        <section class="wallet-rules-section">
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <p class="section-label">IMPORTANT INFORMATION</p>
+
+                    <h2>How Your TMET Wallet Works</h2>
+
+                    <p>
+                        Your wallet is designed to make shopping
+                        at TMET Technologies easier.
+                    </p>
+
+                </div>
+
+
+                <div class="wallet-rules-grid">
+
+
+                    <div class="wallet-rule-card">
+
+                        <div class="wallet-rule-icon">💰</div>
+
+                        <h3>Add Funds</h3>
+
+                        <p>
+                            Customers will be able to fund their
+                            wallets through supported payment methods.
+                        </p>
+
+                    </div>
+
+
+                    <div class="wallet-rule-card">
+
+                        <div class="wallet-rule-icon">🛒</div>
+
+                        <h3>Shop With Your Balance</h3>
+
+                        <p>
+                            Use your available wallet balance
+                            to purchase products from TMET Technologies.
+                        </p>
+
+                    </div>
+
+
+                    <div class="wallet-rule-card">
+
+                        <div class="wallet-rule-icon">🔒</div>
+
+                        <h3>Wallet Restrictions</h3>
+
+                        <p>
+                            Wallet funds cannot be withdrawn as cash
+                            or transferred to another customer's wallet.
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- CUSTOMER SUPPORT -->
+        <section class="shopping-support">
+
+            <div class="container">
+
+                <div class="support-content">
+
+                    <h2>Need Help With Your Wallet?</h2>
+
+                    <p>
+                        Contact our customer support team
+                        for assistance with wallet-related questions.
+                    </p>
+
+                    <a href="contact.html" class="primary-button">
+                        Contact Support
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+
+        <div class="container">
+
+            <div class="footer-content">
+
+                <div class="footer-brand">
+
+                    <a href="index.html" class="brand">
+                        <span class="brand-name">TMET</span>
+                        <span class="brand-tagline">TECHNOLOGIES</span>
+                    </a>
+
+                    <p>
+                        Your trusted destination for technology products,
+                        ICT equipment and accessories.
+                    </p>
+
+                </div>
+
+
+                <div class="footer-links">
+
+                    <h3>Quick Links</h3>
+
+                    <a href="index.html">Home</a>
+                    <a href="products.html">Products</a>
+                    <a href="categories.html">Categories</a>
+                    <a href="account.html">My Account</a>
+                    <a href="wallet.html">My Wallet</a>
+
+                </div>
+
+
+                <div class="footer-links">
+
+                    <h3>Customer Services</h3>
+
+                    <a href="cart.html">Shopping Cart</a>
+                    <a href="checkout.html">Checkout</a>
+                    <a href="contact.html">Contact Us</a>
+
+                </div>
+
+            </div>
+
+
+            <div class="footer-bottom">
+
+                <p>
+                    &copy; <span id="current-year"></span>
+                    TMET Technologies. All rights reserved.
+                </p>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <!-- FIXED BOTTOM NAVIGATION -->
+    <nav class="bottom-navigation" aria-label="Main navigation">
+
+        <a href="index.html" class="bottom-nav-item">
+            <span class="bottom-nav-icon">⌂</span>
+            <span>Home</span>
+        </a>
+
+        <a href="products.html" class="bottom-nav-item">
+            <span class="bottom-nav-icon">▦</span>
+            <span>Products</span>
+        </a>
+
+        <a href="categories.html" class="bottom-nav-item">
+            <span class="bottom-nav-icon">☷</span>
+            <span>Categories</span>
+        </a>
+
+        <a href="account.html" class="bottom-nav-item">
+            <span class="bottom-nav-icon">♙</span>
+            <span>Account</span>
+        </a>
+
+        <a
+            href="wallet.html"
+            class="bottom-nav-item active"
+            aria-current="page"
+        >
+            <span class="bottom-nav-icon">▣</span>
+            <span>Wallet</span>
+        </a>
+
+    </nav>
+
+</body>
+</html>
