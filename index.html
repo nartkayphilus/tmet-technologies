@@ -5,11 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>TMET Technologies | Online Technology Store</title>
+    <title>TMET Technologies | Home</title>
 
-    <meta name="description" content="Shop computers, smartphones, accessories, ICT equipment, books and more at TMET Technologies. Nationwide delivery across Ghana.">
+    <meta name="description" content="Welcome to TMET Technologies. Discover computers, smartphones, accessories, ICT equipment, books and more.">
 
-    <meta name="keywords" content="TMET Technologies, computers, laptops, smartphones, accessories, electronics, online store Ghana">
+    <meta name="keywords" content="TMET Technologies, online store Ghana, computers, phones, electronics">
 
     <meta name="author" content="TMET Technologies">
     <meta name="robots" content="index, follow">
@@ -17,7 +17,7 @@
 
     <meta property="og:type" content="website">
     <meta property="og:title" content="TMET Technologies">
-    <meta property="og:description" content="Shop technology products and everyday essentials with TMET Technologies.">
+    <meta property="og:description" content="Technology, quality products and convenient shopping.">
     <meta property="og:url" content="https://nartkayphilus.github.io/tmet-technologies/">
 
     <link rel="canonical" href="https://nartkayphilus.github.io/tmet-technologies/">
@@ -39,19 +39,19 @@
         <div class="container">
             <p>
                 Welcome to TMET Technologies.
-                <span>Shop with us and enjoy nationwide delivery across Ghana.</span>
+                <span>Discover convenient shopping and nationwide delivery plans across Ghana.</span>
             </p>
         </div>
     </div>
 
 
-    <!-- WEBSITE HEADER -->
+    <!-- HEADER -->
 
     <header class="site-header">
 
         <div class="container header-container">
 
-            <a href="#home" class="brand" aria-label="TMET Technologies homepage">
+            <a href="index.html" class="brand" aria-label="TMET Technologies Home">
 
                 <span class="brand-symbol">T</span>
 
@@ -62,9 +62,11 @@
 
             </a>
 
+
             <button
                 class="menu-toggle"
                 id="menu-toggle"
+                type="button"
                 aria-label="Open navigation menu"
                 aria-expanded="false"
                 aria-controls="main-navigation">
@@ -75,40 +77,38 @@
 
             </button>
 
+
             <nav class="main-navigation" id="main-navigation">
 
-                <a href="#home">Home</a>
-                <a href="#products">Shop</a>
-                <a href="#categories">Categories</a>
-                <a href="#delivery">Delivery</a>
-                <a href="#wallet">Wallet</a>
-                <a href="#account">Account</a>
+                <a href="index.html" class="active">Home</a>
+                <a href="products.html">Products</a>
+                <a href="categories.html">Categories</a>
+                <a href="account.html">Account</a>
+                <a href="wallet.html">Wallet</a>
 
             </nav>
 
+
             <div class="header-actions">
 
-                <button
-                    type="button"
+                <a
+                    href="products.html"
                     class="header-search-button"
-                    id="search-focus-button"
                     aria-label="Search products">
 
                     Search
 
-                </button>
+                </a>
 
-                <button
-                    type="button"
-                    class="cart-button"
-                    id="open-cart"
-                    aria-label="Open shopping cart">
+                <a
+                    href="cart.html"
+                    class="cart-button">
 
                     <span>My Cart</span>
 
                     <span class="cart-count" id="cart-count">0</span>
 
-                </button>
+                </a>
 
             </div>
 
@@ -117,12 +117,14 @@
     </header>
 
 
+    <!-- MAIN CONTENT -->
+
     <main id="main-content">
 
 
-        <!-- HOME PAGE -->
+        <!-- HERO SECTION -->
 
-        <section class="hero-section" id="home">
+        <section class="hero-section">
 
             <div class="container hero-container">
 
@@ -141,17 +143,26 @@
                     <p class="hero-description">
                         Discover computers, smartphones,
                         accessories, ICT equipment, books
-                        and other products at TMET Technologies.
+                        and other quality products at
+                        TMET Technologies.
                     </p>
 
                     <div class="hero-buttons">
 
-                        <a href="#products" class="button button-primary">
+                        <a
+                            href="products.html"
+                            class="button button-primary">
+
                             Shop Products
+
                         </a>
 
-                        <a href="#categories" class="button button-outline">
+                        <a
+                            href="categories.html"
+                            class="button button-outline">
+
                             Browse Categories
+
                         </a>
 
                     </div>
@@ -160,14 +171,12 @@
 
                         <span class="status-dot"></span>
 
-                        Shop conveniently. Get your products delivered.
+                        Discover. Shop. Enjoy.
 
                     </div>
 
                 </div>
 
-
-                <!-- CLEAN PRODUCT VISUAL -->
 
                 <div class="hero-visual">
 
@@ -194,8 +203,12 @@
                                 and convenient shopping.
                             </p>
 
-                            <a href="#products" class="button button-primary">
+                            <a
+                                href="products.html"
+                                class="button button-primary">
+
                                 Start Shopping
+
                             </a>
 
                         </div>
@@ -224,27 +237,38 @@
             <div class="container highlights-grid">
 
                 <article class="highlight-item">
+
                     <span class="highlight-icon">01</span>
+
                     <div>
                         <h3>Product Variety</h3>
                         <p>Explore different product categories</p>
                     </div>
+
                 </article>
 
+
                 <article class="highlight-item">
+
                     <span class="highlight-icon">02</span>
+
                     <div>
                         <h3>Easy Shopping</h3>
                         <p>A convenient online shopping experience</p>
                     </div>
+
                 </article>
 
+
                 <article class="highlight-item">
+
                     <span class="highlight-icon">03</span>
+
                     <div>
                         <h3>Ghana Nationwide</h3>
                         <p>Delivery service planned across Ghana</p>
                     </div>
+
                 </article>
 
             </div>
@@ -252,23 +276,88 @@
         </section>
 
 
-        <!-- PRODUCT CATEGORIES -->
+        <!-- INTRODUCTION -->
 
-        <section class="categories-section section-padding" id="categories">
+        <section class="about-section section-padding">
+
+            <div class="container about-grid">
+
+                <div class="about-content">
+
+                    <span class="eyebrow">
+                        ABOUT TMET TECHNOLOGIES
+                    </span>
+
+                    <h2>
+                        Your Destination for
+                        <span>Technology and Products.</span>
+                    </h2>
+
+                    <p>
+                        TMET Technologies is an online shopping
+                        destination focused on providing access
+                        to computers, mobile devices, accessories,
+                        ICT equipment, books and other products.
+                    </p>
+
+                    <p>
+                        Our goal is to make shopping convenient
+                        and accessible while building a reliable
+                        customer experience.
+                    </p>
+
+                    <a
+                        href="products.html"
+                        class="button button-primary">
+
+                        Explore Our Products
+
+                    </a>
+
+                </div>
+
+
+                <div class="about-panel">
+
+                    <div class="about-panel-content">
+
+                        <span class="large-symbol">T</span>
+
+                        <h3>TMET TECHNOLOGIES</h3>
+
+                        <p>
+                            Technology. Products. Possibilities.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- SHOPPING DESTINATIONS -->
+
+        <section class="categories-section section-padding">
 
             <div class="container">
 
                 <div class="section-heading">
 
-                    <span class="eyebrow">SHOP BY CATEGORY</span>
+                    <span class="eyebrow">
+                        EXPLORE OUR STORE
+                    </span>
 
                     <h2>
-                        Explore Our
-                        <span>Categories.</span>
+                        Everything in
+                        <span>One Place.</span>
                     </h2>
 
                     <p>
-                        Find products by exploring our different categories.
+                        Explore our shopping pages and discover
+                        what TMET Technologies has to offer.
                     </p>
 
                 </div>
@@ -276,205 +365,103 @@
 
                 <div class="category-grid">
 
-                    <button class="category-card" type="button"
-                        data-category-link="computers">
+                    <a
+                        href="products.html"
+                        class="category-card">
 
-                        <span class="category-icon">PC</span>
-                        <h3>Computers & Laptops</h3>
-                        <p>Desktop computers, laptops and computing devices.</p>
-                        <span class="category-link">Explore Category →</span>
+                        <span class="category-icon">01</span>
 
-                    </button>
-
-
-                    <button class="category-card" type="button"
-                        data-category-link="phones">
-
-                        <span class="category-icon">PH</span>
-                        <h3>Phones & Tablets</h3>
-                        <p>Smartphones, tablets and mobile devices.</p>
-                        <span class="category-link">Explore Category →</span>
-
-                    </button>
-
-
-                    <button class="category-card" type="button"
-                        data-category-link="accessories">
-
-                        <span class="category-icon">AC</span>
-                        <h3>Accessories</h3>
-                        <p>Chargers, keyboards, mice, headphones and more.</p>
-                        <span class="category-link">Explore Category →</span>
-
-                    </button>
-
-
-                    <button class="category-card" type="button"
-                        data-category-link="equipment">
-
-                        <span class="category-icon">IT</span>
-                        <h3>ICT Equipment</h3>
-                        <p>Printers, networking devices and storage equipment.</p>
-                        <span class="category-link">Explore Category →</span>
-
-                    </button>
-
-
-                    <button class="category-card" type="button"
-                        data-category-link="books">
-
-                        <span class="category-icon">BK</span>
-                        <h3>Books & Materials</h3>
-                        <p>Educational, business and reading materials.</p>
-                        <span class="category-link">Explore Category →</span>
-
-                    </button>
-
-
-                    <button class="category-card" type="button"
-                        data-category-link="other">
-
-                        <span class="category-icon">+</span>
-                        <h3>Other Products</h3>
-                        <p>Discover additional products as our store grows.</p>
-                        <span class="category-link">Explore Category →</span>
-
-                    </button>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- SHOP / PRODUCT CATALOGUE -->
-
-        <section class="products-section section-padding" id="products">
-
-            <div class="container">
-
-                <div class="section-heading">
-
-                    <span class="eyebrow">TMET ONLINE STORE</span>
-
-                    <h2>
-                        Shop Our
-                        <span>Products.</span>
-                    </h2>
-
-                    <p>
-                        Browse available products and add your selections
-                        to your shopping cart.
-                    </p>
-
-                </div>
-
-
-                <div class="product-toolbar">
-
-                    <div class="product-search">
-
-                        <label for="product-search-input">
-                            Search products
-                        </label>
-
-                        <input
-                            type="search"
-                            id="product-search-input"
-                            placeholder="Search computers, phones, books..."
-                            autocomplete="off">
-
-                    </div>
-
-
-                    <div class="product-sort">
-
-                        <label for="product-sort">
-                            Sort products
-                        </label>
-
-                        <select id="product-sort">
-
-                            <option value="default">Recommended</option>
-                            <option value="price-low">Price: Low to High</option>
-                            <option value="price-high">Price: High to Low</option>
-                            <option value="name">Product Name</option>
-
-                        </select>
-
-                    </div>
-
-                </div>
-
-
-                <div class="product-filters" aria-label="Filter products">
-
-                    <button type="button" class="filter-button active"
-                        data-filter="all">All Products</button>
-
-                    <button type="button" class="filter-button"
-                        data-filter="computers">Computers</button>
-
-                    <button type="button" class="filter-button"
-                        data-filter="phones">Phones</button>
-
-                    <button type="button" class="filter-button"
-                        data-filter="accessories">Accessories</button>
-
-                    <button type="button" class="filter-button"
-                        data-filter="equipment">ICT Equipment</button>
-
-                    <button type="button" class="filter-button"
-                        data-filter="books">Books</button>
-
-                    <button type="button" class="filter-button"
-                        data-filter="other">Others</button>
-
-                </div>
-
-
-                <div class="product-grid" id="product-grid" aria-live="polite">
-
-                    <div class="empty-products">
-
-                        <span class="empty-products-icon">TMET</span>
-
-                        <h3>Our Product Catalogue Is Growing</h3>
+                        <h3>Our Products</h3>
 
                         <p>
-                            New products will appear here as they
-                            become available.
+                            Browse available products and
+                            discover new additions.
                         </p>
 
-                        <a href="#contact" class="button button-primary">
-                            Make a Product Enquiry
-                        </a>
+                        <span class="category-link">
+                            Shop Products →
+                        </span>
 
-                    </div>
+                    </a>
+
+
+                    <a
+                        href="categories.html"
+                        class="category-card">
+
+                        <span class="category-icon">02</span>
+
+                        <h3>Product Categories</h3>
+
+                        <p>
+                            Find products by exploring
+                            our different categories.
+                        </p>
+
+                        <span class="category-link">
+                            Explore Categories →
+                        </span>
+
+                    </a>
+
+
+                    <a
+                        href="account.html"
+                        class="category-card">
+
+                        <span class="category-icon">03</span>
+
+                        <h3>Customer Account</h3>
+
+                        <p>
+                            Access your personal shopping
+                            account and order information.
+                        </p>
+
+                        <span class="category-link">
+                            My Account →
+                        </span>
+
+                    </a>
+
+
+                    <a
+                        href="wallet.html"
+                        class="category-card">
+
+                        <span class="category-icon">04</span>
+
+                        <h3>Shopping Wallet</h3>
+
+                        <p>
+                            Access the planned TMET
+                            customer shopping wallet.
+                        </p>
+
+                        <span class="category-link">
+                            Open Wallet →
+                        </span>
+
+                    </a>
 
                 </div>
-
-
-                <p class="store-notice">
-                    Product availability and prices are subject
-                    to confirmation.
-                </p>
 
             </div>
 
         </section>
 
 
-        <!-- DELIVERY SERVICES -->
+        <!-- DELIVERY INTRODUCTION -->
 
-        <section class="mission-section section-padding" id="delivery">
+        <section class="mission-section section-padding">
 
             <div class="container">
 
                 <div class="section-heading">
 
-                    <span class="eyebrow">DELIVERY SERVICES</span>
+                    <span class="eyebrow">
+                        DELIVERY SERVICES
+                    </span>
 
                     <h2>
                         Bringing Your Orders
@@ -482,8 +469,8 @@
                     </h2>
 
                     <p>
-                        Our goal is to make products accessible to
-                        customers throughout Ghana.
+                        Our goal is to make products accessible
+                        to customers throughout Ghana.
                     </p>
 
                 </div>
@@ -498,9 +485,8 @@
                         <h3>Nationwide Coverage</h3>
 
                         <p>
-                            We plan to serve customers in Accra,
-                            Kumasi, Takoradi, Tamale and other
-                            parts of Ghana.
+                            We plan to serve customers in
+                            different regions across Ghana.
                         </p>
 
                     </article>
@@ -514,8 +500,7 @@
 
                         <p>
                             We intend to work with suitable
-                            courier and logistics companies
-                            to fulfil customer orders.
+                            courier and logistics companies.
                         </p>
 
                     </article>
@@ -528,27 +513,60 @@
                         <h3>Order Tracking</h3>
 
                         <p>
-                            Customers will be able to follow
-                            their orders and receive delivery
-                            updates as the service develops.
+                            Order updates and tracking will
+                            form part of our customer service.
                         </p>
 
                     </article>
 
                 </div>
 
+            </div>
+
+        </section>
+
+
+        <!-- CUSTOMER SUPPORT -->
+
+        <section class="contact-section section-padding">
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <span class="eyebrow">
+                        CUSTOMER SUPPORT
+                    </span>
+
+                    <h2>
+                        Need Assistance?
+                        <span>We're Here to Help.</span>
+                    </h2>
+
+                    <p>
+                        Contact our team for product,
+                        ordering and business enquiries.
+                    </p>
+
+                </div>
+
 
                 <div class="delivery-notice">
 
-                    <h3>Need help with delivery?</h3>
+                    <h3>Get in Touch With Us</h3>
 
                     <p>
-                        Contact our business team for delivery
-                        enquiries and assistance.
+                        Have a question about a product,
+                        order or business opportunity?
+                        Send us an enquiry.
                     </p>
 
-                    <a href="#contact" class="button button-primary">
-                        Contact Us
+                    <a
+                        href="contact.html"
+                        class="button button-primary">
+
+                        Contact TMET Technologies
+
                     </a>
 
                 </div>
@@ -558,527 +576,61 @@
         </section>
 
 
-        <!-- CUSTOMER WALLET -->
-
-        <section class="about-section section-padding" id="wallet">
-
-            <div class="container about-grid">
-
-                <div class="about-content">
-
-                    <span class="eyebrow">TMET SHOPPING WALLET</span>
-
-                    <h2>
-                        Your Shopping
-                        <span>Wallet.</span>
-                    </h2>
-
-                    <p>
-                        The TMET shopping wallet is being planned
-                        to make purchasing products more convenient.
-                    </p>
-
-                    <p>
-                        Customers will be able to fund their wallets
-                        through supported payment methods and use
-                        available funds to purchase products.
-                    </p>
-
-                    <p>
-                        Wallet funds will be restricted to purchases
-                        from TMET Technologies. Cash withdrawals and
-                        transfers to other customers will not be
-                        supported.
-                    </p>
-
-                    <span class="wallet-status">
-                        Wallet payment integration coming soon
-                    </span>
-
-                </div>
-
-
-                <div class="about-panel">
-
-                    <div class="about-panel-content">
-
-                        <span class="large-symbol">₵</span>
-
-                        <h3>SHOPPING WALLET</h3>
-
-                        <p>
-                            Deposit. Shop. Enjoy.
-                        </p>
-
-                        <p class="wallet-status">
-                            Secure payment setup pending
-                        </p>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- CUSTOMER ACCOUNT -->
-
-        <section class="categories-section section-padding" id="account">
-
-            <div class="container">
-
-                <div class="section-heading">
-
-                    <span class="eyebrow">CUSTOMER ACCOUNT</span>
-
-                    <h2>
-                        Your Account.
-                        <span>Your Orders.</span>
-                    </h2>
-
-                    <p>
-                        Your personal shopping area will bring
-                        your account information and orders together.
-                    </p>
-
-                </div>
-
-
-                <div class="three-column-grid">
-
-                    <article class="info-card">
-
-                        <div class="card-icon">01</div>
-
-                        <h3>Personal Profile</h3>
-
-                        <p>
-                            Manage your personal details,
-                            contact information and delivery addresses.
-                        </p>
-
-                    </article>
-
-
-                    <article class="info-card">
-
-                        <div class="card-icon">02</div>
-
-                        <h3>My Orders</h3>
-
-                        <p>
-                            Review your purchases, order details
-                            and delivery progress.
-                        </p>
-
-                    </article>
-
-
-                    <article class="info-card">
-
-                        <div class="card-icon">03</div>
-
-                        <h3>Account Security</h3>
-
-                        <p>
-                            Access your account through a secure
-                            registration and login system.
-                        </p>
-
-                    </article>
-
-                </div>
-
-
-                <p class="account-notice">
-                    Customer registration and account services
-                    will be activated after the secure account
-                    system is connected.
-                </p>
-
-            </div>
-
-        </section>
-
-
-        <!-- CUSTOMER SUPPORT / CONTACT -->
-
-        <section class="contact-section section-padding" id="contact">
-
-            <div class="container">
-
-                <div class="section-heading">
-
-                    <span class="eyebrow">CUSTOMER SUPPORT</span>
-
-                    <h2>
-                        How Can We
-                        <span>Help You?</span>
-                    </h2>
-
-                    <p>
-                        Contact TMET Technologies about products,
-                        orders, delivery and business enquiries.
-                    </p>
-
-                </div>
-
-
-                <div class="contact-grid">
-
-                    <div class="contact-information">
-
-                        <h3>Contact TMET Technologies</h3>
-
-                        <p>
-                            We welcome product enquiries,
-                            bulk orders and business discussions.
-                        </p>
-
-                        <div class="contact-detail">
-                            <strong>Business</strong>
-                            <span>TMET Technologies</span>
-                        </div>
-
-                        <div class="contact-detail">
-                            <strong>Location</strong>
-                            <span>Ghana</span>
-                        </div>
-
-                        <div class="contact-detail">
-                            <strong>Website</strong>
-                            <span>TMET Technologies Online Store</span>
-                        </div>
-
-                        <p class="contact-note">
-                            Official business contact details
-                            will be added when available.
-                        </p>
-
-                    </div>
-
-
-                    <div class="contact-form-container">
-
-                        <h3>Send Us an Enquiry</h3>
-
-                        <form id="contact-form" class="contact-form">
-
-                            <div class="form-group">
-
-                                <label for="customer-name">Full Name</label>
-
-                                <input
-                                    type="text"
-                                    id="customer-name"
-                                    name="name"
-                                    placeholder="Enter your full name"
-                                    required>
-
-                            </div>
-
-
-                            <div class="form-group">
-
-                                <label for="customer-email">Email Address</label>
-
-                                <input
-                                    type="email"
-                                    id="customer-email"
-                                    name="email"
-                                    placeholder="Enter your email"
-                                    required>
-
-                            </div>
-
-
-                            <div class="form-group">
-
-                                <label for="enquiry-type">Enquiry Type</label>
-
-                                <select id="enquiry-type" name="enquiry" required>
-
-                                    <option value="">Select an enquiry</option>
-                                    <option value="Product enquiry">Product Enquiry</option>
-                                    <option value="Order enquiry">Order Enquiry</option>
-                                    <option value="Delivery enquiry">Delivery Enquiry</option>
-                                    <option value="Bulk order">Bulk Order</option>
-                                    <option value="Business partnership">Business Partnership</option>
-                                    <option value="Other">Other</option>
-
-                                </select>
-
-                            </div>
-
-
-                            <div class="form-group">
-
-                                <label for="customer-message">Your Message</label>
-
-                                <textarea
-                                    id="customer-message"
-                                    name="message"
-                                    rows="5"
-                                    placeholder="How can we assist you?"
-                                    required></textarea>
-
-                            </div>
-
-
-                            <button type="submit" class="button button-primary">
-                                Submit Enquiry
-                            </button>
-
-                            <p
-                                id="contact-feedback"
-                                class="form-feedback"
-                                role="status"
-                                aria-live="polite">
-                            </p>
-
-                        </form>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- FAQ -->
-
-        <section class="faq-section section-padding" id="faq">
-
-            <div class="container">
-
-                <div class="section-heading">
-
-                    <span class="eyebrow">HELP CENTRE</span>
-
-                    <h2>
-                        Frequently Asked
-                        <span>Questions.</span>
-                    </h2>
-
-                </div>
-
-
-                <div class="faq-container">
-
-                    <details class="faq-item">
-                        <summary>What products does TMET Technologies sell?</summary>
-                        <p>
-                            Our product categories include computers,
-                            phones, accessories, ICT equipment, books
-                            and other products.
-                        </p>
-                    </details>
-
-                    <details class="faq-item">
-                        <summary>Does TMET Technologies deliver across Ghana?</summary>
-                        <p>
-                            Nationwide delivery is part of our plan.
-                            Delivery coverage and available options
-                            will be confirmed as our delivery service
-                            is established.
-                        </p>
-                    </details>
-
-                    <details class="faq-item">
-                        <summary>Can I use a wallet to purchase products?</summary>
-                        <p>
-                            We are planning a shopping wallet that
-                            will only be used to purchase products
-                            from TMET Technologies.
-                        </p>
-                    </details>
-
-                    <details class="faq-item">
-                        <summary>Can I track my order?</summary>
-                        <p>
-                            Order tracking is planned as part of
-                            our customer delivery service.
-                        </p>
-                    </details>
-
-                    <details class="faq-item">
-                        <summary>Can I make bulk orders?</summary>
-                        <p>
-                            Yes. Contact us to discuss bulk orders
-                            and product availability.
-                        </p>
-                    </details>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- NEWSLETTER -->
-
-        <section class="newsletter-section section-padding">
-
-            <div class="container newsletter-container">
-
-                <div class="newsletter-content">
-
-                    <span class="eyebrow">STAY CONNECTED</span>
-
-                    <h2>
-                        Keep Up With
-                        <span>Our Store.</span>
-                    </h2>
-
-                    <p>
-                        Stay informed about new products
-                        and business updates.
-                    </p>
-
-                </div>
-
-
-                <form id="newsletter-form" class="newsletter-form">
-
-                    <label for="newsletter-email">Your Email Address</label>
-
-                    <div class="newsletter-input-group">
-
-                        <input
-                            type="email"
-                            id="newsletter-email"
-                            name="email"
-                            placeholder="Enter your email address"
-                            required>
-
-                        <button type="submit" class="button button-primary">
-                            Subscribe
-                        </button>
-
-                    </div>
-
-                    <p
-                        id="newsletter-feedback"
-                        class="form-feedback"
-                        role="status"
-                        aria-live="polite">
-                    </p>
-
-                </form>
-
-            </div>
-
-        </section>
-
-
-        <!-- SHOPPING CART -->
-
-        <div class="cart-overlay" id="cart-overlay" aria-hidden="true">
-
-            <aside
-                class="cart-panel"
-                id="cart-panel"
-                aria-label="Shopping cart">
-
-                <div class="cart-header">
-
-                    <h2>Your Shopping Cart</h2>
-
-                    <button
-                        type="button"
-                        id="close-cart"
-                        aria-label="Close shopping cart">
-                        ×
-                    </button>
-
-                </div>
-
-
-                <div class="cart-items" id="cart-items" aria-live="polite">
-
-                    <p class="cart-empty">
-                        Your cart is currently empty.
-                    </p>
-
-                </div>
-
-
-                <div class="cart-summary">
-
-                    <div class="cart-total-row">
-
-                        <span>Estimated Total</span>
-
-                        <strong id="cart-total">GH₵0.00</strong>
-
-                    </div>
-
-                    <p>
-                        Delivery charges and final order details
-                        will be confirmed at checkout.
-                    </p>
-
-                    <button
-                        type="button"
-                        class="button button-primary"
-                        id="checkout-button"
-                        disabled>
-                        Proceed to Order
-                    </button>
-
-                </div>
-
-            </aside>
-
-        </div>
-
-
-        <!-- BACK TO TOP -->
-
-        <button
-            type="button"
-            id="back-to-top"
-            class="back-to-top"
-            aria-label="Back to top">
-            ↑
-        </button>
-
-
     </main>
 
 
-    <!-- MOBILE BOTTOM NAVIGATION -->
+    <!-- FIXED BOTTOM NAVIGATION -->
 
-    <nav class="mobile-bottom-nav" aria-label="Mobile navigation">
+    <nav class="bottom-navigation" aria-label="Main navigation">
 
-        <a href="#home" class="bottom-nav-item active">
+        <a
+            href="index.html"
+            class="bottom-nav-item active"
+            aria-current="page">
+
             <span class="bottom-nav-icon">⌂</span>
             <span>Home</span>
+
         </a>
 
-        <a href="#products" class="bottom-nav-item">
+
+        <a
+            href="products.html"
+            class="bottom-nav-item">
+
             <span class="bottom-nav-icon">▣</span>
-            <span>Shop</span>
+            <span>Products</span>
+
         </a>
 
-        <a href="#categories" class="bottom-nav-item">
+
+        <a
+            href="categories.html"
+            class="bottom-nav-item">
+
             <span class="bottom-nav-icon">▦</span>
             <span>Categories</span>
+
         </a>
 
-        <a href="#wallet" class="bottom-nav-item">
-            <span class="bottom-nav-icon">₵</span>
-            <span>Wallet</span>
-        </a>
 
-        <a href="#account" class="bottom-nav-item">
+        <a
+            href="account.html"
+            class="bottom-nav-item">
+
             <span class="bottom-nav-icon">♙</span>
             <span>Account</span>
+
+        </a>
+
+
+        <a
+            href="wallet.html"
+            class="bottom-nav-item">
+
+            <span class="bottom-nav-icon">₵</span>
+            <span>Wallet</span>
+
         </a>
 
     </nav>
@@ -1093,7 +645,7 @@
 
             <div class="footer-brand">
 
-                <a href="#home" class="brand">
+                <a href="index.html" class="brand">
 
                     <span class="brand-symbol">T</span>
 
@@ -1117,10 +669,10 @@
 
                 <h3>Explore</h3>
 
-                <a href="#home">Home</a>
-                <a href="#categories">Categories</a>
-                <a href="#products">Shop Products</a>
-                <a href="#wallet">Shopping Wallet</a>
+                <a href="index.html">Home</a>
+                <a href="products.html">Products</a>
+                <a href="categories.html">Categories</a>
+                <a href="cart.html">Shopping Cart</a>
 
             </div>
 
@@ -1129,10 +681,10 @@
 
                 <h3>Customer Services</h3>
 
-                <a href="#account">My Account</a>
-                <a href="#delivery">Delivery Information</a>
-                <a href="#faq">Frequently Asked Questions</a>
-                <a href="#contact">Contact Us</a>
+                <a href="account.html">My Account</a>
+                <a href="wallet.html">Shopping Wallet</a>
+                <a href="checkout.html">Checkout</a>
+                <a href="contact.html">Contact Us</a>
 
             </div>
 
@@ -1141,9 +693,8 @@
 
                 <h3>Business</h3>
 
-                <a href="#products">Our Store</a>
-                <a href="#delivery">Delivery Services</a>
-                <a href="#contact">Business Enquiries</a>
+                <a href="products.html">Our Store</a>
+                <a href="contact.html">Business Enquiries</a>
 
             </div>
 
