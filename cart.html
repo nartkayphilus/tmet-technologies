@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Shopping Cart | TMET Technologies</title>
+
+    <meta name="description" content="Review your selected products and prepare your order at TMET Technologies.">
+
+    <meta name="theme-color" content="#071a35">
+
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+
+    <!-- ANNOUNCEMENT BAR -->
+    <div class="announcement-bar">
+        <p>Welcome to TMET Technologies. Your trusted technology store.</p>
+    </div>
+
+
+    <!-- HEADER -->
+    <header class="site-header">
+
+        <div class="header-container">
+
+            <a href="index.html" class="brand">
+                <span class="brand-name">TMET</span>
+                <span class="brand-tagline">TECHNOLOGIES</span>
+            </a>
+
+            <button
+                class="menu-toggle"
+                id="menu-toggle"
+                aria-label="Open navigation menu"
+                aria-expanded="false"
+            >
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <nav class="main-navigation" id="main-navigation">
+
+                <a href="index.html">Home</a>
+                <a href="products.html">Products</a>
+                <a href="categories.html">Categories</a>
+                <a href="account.html">Account</a>
+                <a href="wallet.html">Wallet</a>
+
+            </nav>
+
+            <div class="header-actions">
+
+                <a href="products.html" class="search-focus-button">
+                    Search
+                </a>
+
+                <a href="cart.html" class="cart-button" aria-current="page">
+                    Cart
+                    <span id="cart-count">0</span>
+                </a>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- MAIN CONTENT -->
+    <main>
+
+        <!-- PAGE INTRODUCTION -->
+        <section class="page-hero">
+
+            <div class="container">
+
+                <p class="section-label">YOUR SHOPPING BAG</p>
+
+                <h1>Shopping Cart</h1>
+
+                <p>
+                    Review your selected products before proceeding
+                    to checkout.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- CART SECTION -->
+        <section class="cart-page-section">
+
+            <div class="container">
+
+                <div class="cart-page-layout">
+
+
+                    <!-- CART ITEMS -->
+                    <div class="cart-items-container">
+
+                        <div class="cart-section-heading">
+
+                            <h2>Your Selected Products</h2>
+
+                            <a href="products.html">
+                                Continue Shopping
+                            </a>
+
+                        </div>
+
+
+                        <div id="cart-page-items">
+
+                            <!-- Cart products will be displayed here -->
+
+                            <div class="cart-empty-state">
+
+                                <div class="cart-empty-icon">🛒</div>
+
+                                <h3>Your Cart Is Empty</h3>
+
+                                <p>
+                                    You haven't added any products
+                                    to your shopping cart yet.
+                                </p>
+
+                                <a
+                                    href="products.html"
+                                    class="primary-button"
+                                >
+                                    Explore Products
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ORDER SUMMARY -->
+                    <aside class="cart-summary-card">
+
+                        <h2>Order Summary</h2>
+
+
+                        <div class="cart-summary-row">
+
+                            <span>Subtotal</span>
+
+                            <strong id="cart-page-subtotal">
+                                GHS 0.00
+                            </strong>
+
+                        </div>
+
+
+                        <div class="cart-summary-row">
+
+                            <span>Delivery Fee</span>
+
+                            <strong id="cart-page-delivery">
+                                Calculated at checkout
+                            </strong>
+
+                        </div>
+
+
+                        <div class="cart-summary-divider"></div>
+
+
+                        <div class="cart-summary-total">
+
+                            <span>Estimated Total</span>
+
+                            <strong id="cart-page-total">
+                                GHS 0.00
+                            </strong>
+
+                        </div>
+
+
+                        <p class="cart-summary-note">
+                            Final delivery charges will depend
+                            on your delivery location.
+                        </p>
+
+
+                        <a
+                            href="checkout.html"
+                            class="primary-button checkout-button"
+                            id="cart-checkout-button"
+                        >
+                            Proceed to Checkout
+                        </a>
+
+
+                        <div class="cart-payment-info">
+
+                            <p>Secure shopping at TMET Technologies.</p>
+
+                        </div>
+
+                    </aside>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- SHOPPING SUPPORT -->
+        <section class="shopping-support">
+
+            <div class="container">
+
+                <div class="support-content">
+
+                    <h2>Need Help With Your Order?</h2>
+
+                    <p>
+                        Our customer support team is ready to
+                        assist you with your shopping experience.
+                    </p>
+
+                    <a href="contact.html" class="primary-button">
+                        Contact Support
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+
+        <div class="container">
+
+            <div class="footer-content">
+
+                <div class="footer-brand">
+
+                    <a href="index.html" class="brand">
+                        <span class="brand-name">TMET</span>
+                        <span class="brand-tagline">TECHNOLOGIES</span>
+                    </a>
+
+                    <p>
+                        Your trusted destination for technology products,
+                        ICT equipment and accessories.
+                    </p>
+
+                </div>
+
+
+                <div class="footer-links">
+
+                    <h3>Quick Links</h3>
+
+                    <a href="index.html">Home</a>
+                    <a href="products.html">Products</a>
+                    <a href="categories.html">Categories</a>
+                    <a href="account.html">My Account</a>
+                    <a href="wallet.html">My Wallet</a>
+
+                </div>
+
+
+                <div class="footer-links">
+
+                    <h3>Customer Services</h3>
+
+                    <a href="cart.html">Shopping Cart</a>
+                    <a href="checkout.html">Checkout</a>
+                    <a href="contact.html">Contact Us</a>
+
+                </div>
+
+            </div>
+
+
+            <div class="footer-bottom">
+
+                <p>
+                    &copy; <span id="current-year"></span>
+                    TMET Technologies. All rights reserved.
+                </p>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <!-- FIXED BOTTOM NAVIGATION -->
+    <nav class="bottom-navigation" aria-label="Main navigation">
+
+        <a href="index.html" class="bottom-nav-item">
+            <span class="bottom-nav-icon">⌂</span>
+            <span>Home</span>
+        </a>
+
+        <a href="products.html" class="bottom-nav-item">
+            <span class="bottom-nav-icon">▦</span>
+            <span>Products</span>
+        </a>
+
+        <a href="categories.html" class="bottom-nav-item">
+            <span class="bottom-nav-icon">☷</span>
+            <span>Categories</span>
+        </a>
+
+        <a href="account.html" class="bottom-nav-item">
+            <span class="bottom-nav-icon">♙</span>
+            <span>Account</span>
+        </a>
+
+        <a href="wallet.html" class="bottom-nav-item">
+            <span class="bottom-nav-icon">▣</span>
+            <span>Wallet</span>
+        </a>
+
+    </nav>
+
+</body>
+</html>
