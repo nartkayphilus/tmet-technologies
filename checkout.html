@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Checkout | TMET Technologies</title>
+
+    <meta name="description" content="Complete your order, provide delivery information and select a payment method at TMET Technologies.">
+
+    <meta name="theme-color" content="#071a35">
+
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+
+    <!-- ANNOUNCEMENT BAR -->
+    <div class="announcement-bar">
+        <p>Welcome to TMET Technologies. Your trusted technology store.</p>
+    </div>
+
+
+    <!-- HEADER -->
+    <header class="site-header">
+
+        <div class="header-container">
+
+            <a href="index.html" class="brand">
+                <span class="brand-name">TMET</span>
+                <span class="brand-tagline">TECHNOLOGIES</span>
+            </a>
+
+            <button
+                class="menu-toggle"
+                id="menu-toggle"
+                aria-label="Open navigation menu"
+                aria-expanded="false"
+            >
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <nav class="main-navigation" id="main-navigation">
+
+                <a href="index.html">Home</a>
+                <a href="products.html">Products</a>
+                <a href="categories.html">Categories</a>
+                <a href="account.html">Account</a>
+                <a href="wallet.html">Wallet</a>
+
+            </nav>
+
+            <div class="header-actions">
+
+                <a href="products.html" class="search-focus-button">
+                    Search
+                </a>
+
+                <a href="cart.html" class="cart-button">
+                    Cart
+                    <span id="cart-count">0</span>
+                </a>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- MAIN CONTENT -->
+    <main>
+
+        <!-- PAGE INTRODUCTION -->
+        <section class="page-hero">
+
+            <div class="container">
+
+                <p class="section-label">COMPLETE YOUR PURCHASE</p>
+
+                <h1>Checkout</h1>
+
+                <p>
+                    Provide your details, choose your delivery
+                    preference and review your order.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- CHECKOUT SECTION -->
+        <section class="checkout-section">
+
+            <div class="container">
+
+                <form id="checkout-form">
+
+                    <div class="checkout-layout">
+
+
+                        <!-- CUSTOMER INFORMATION -->
+                        <div class="checkout-main">
+
+
+                            <!-- CONTACT DETAILS -->
+                            <div class="checkout-card">
+
+                                <div class="checkout-card-heading">
+
+                                    <span class="checkout-step">01</span>
+
+                                    <div>
+                                        <h2>Contact Information</h2>
+
+                                        <p>
+                                            Enter the details we can
+                                            use to contact you.
+                                        </p>
+                                    </div>
+
+                                </div>
+
+
+                                <div class="form-grid">
+
+                                    <div class="form-group">
+
+                                        <label for="checkout-first-name">
+                                            First Name
+                                        </label>
+
+                                        <input
+                                            type="text"
+                                            id="checkout-first-name"
+                                            name="first-name"
+                                            placeholder="First name"
+                                            autocomplete="given-name"
+                                            required
+                                        >
+
+                                    </div>
+
+
+                                    <div class="form-group">
+
+                                        <label for="checkout-last-name">
+                                            Last Name
+                                        </label>
+
+                                        <input
+                                            type="text"
+                                            id="checkout-last-name"
+                                            name="last-name"
+                                            placeholder="Last name"
+                                            autocomplete="family-name"
+                                            required
+                                        >
+
+                                    </div>
+
+
+                                    <div class="form-group">
+
+                                        <label for="checkout-email">
+                                            Email Address
+                                        </label>
+
+                                        <input
+                                            type="email"
+                                            id="checkout-email"
+                                            name="email"
+                                            placeholder="example@email.com"
+                                            autocomplete="email"
+                                            required
+                                        >
+
+                                    </div>
+
+
+                                    <div class="form-group">
+
+                                        <label for="checkout-phone">
+                                            Phone Number
+                                        </label>
+
+                                        <input
+                                            type="tel"
+                                            id="checkout-phone"
+                                            name="phone"
+                                            placeholder="Enter phone number"
+                                            autocomplete="tel"
+                                            required
+                                        >
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- DELIVERY ADDRESS -->
+                            <div class="checkout-card">
+
+                                <div class="checkout-card-heading">
+
+                                    <span class="checkout-step">02</span>
+
+                                    <div>
+                                        <h2>Delivery Address</h2>
+
+                                        <p>
+                                            Where should we deliver
+                                            your order?
+                                        </p>
+                                    </div>
+
+                                </div>
+
+
+                                <div class="form-grid">
+
+                                    <div class="form-group full-width">
+
+                                        <label for="delivery-address">
+                                            Street Address
+                                        </label>
+
+                                        <input
+                                            type="text"
+                                            id="delivery-address"
+                                            name="address"
+                                            placeholder="House number, street name or location"
+                                            autocomplete="street-address"
+                                            required
+                                        >
+
+                                    </div>
+
+
+                                    <div class="form-group">
+
+                                        <label for="delivery-city">
+                                            City / Town
+                                        </label>
+
+                                        <input
+                                            type="text"
+                                            id="delivery-city"
+                                            name="city"
+                                            placeholder="Enter your city or town"
+                                            autocomplete="address-level2"
+                                            required
+                                        >
+
+                                    </div>
+
+
+                                    <div class="form-group">
+
+                                        <label for="delivery-region">
+                                            Region
+                                        </label>
+
+                                        <select
+                                            id="delivery-region"
+                                            name="region"
+                                            required
+                                        >
+
+                                            <option value="">
+                                                Select your region
+                                            </option>
+
+                                            <option>Greater Accra</option>
+                                            <option>Ashanti</option>
+                                            <option>Central</option>
+                                            <option>Eastern</option>
+                                            <option>Western</option>
+                                            <option>Western North</option>
+                                            <option>Volta</option>
+                                            <option>Oti</option>
+                                            <option>Northern</option>
+                                            <option>Savannah</option>
+                                            <option>North East</option>
+                                            <option>Upper East</option>
+                                            <option>Upper West</option>
+                                            <option>Bono</option>
+                                            <option>Bono East</option>
+                                            <option>Ahafo</option>
+
+                                        </select>
+
+                                    </div>
+
+
+                                    <div class="form-group full-width">
+
+                                        <label for="delivery-landmark">
+                                            Nearby Landmark (Optional)
+                                        </label>
+
+                                        <input
+                                            type="text"
+                                            id="delivery-landmark"
+                                            name="landmark"
+                                            placeholder="A nearby landmark to help locate you"
+                                        >
+
+                                    </div>
+
+
+                                    <div class="form-group full-width">
+
+                                        <label for="delivery-instructions">
+                                            Delivery Instructions (Optional)
+                                        </label>
+
+                                        <textarea
+                                            id="delivery-instructions"
+                                            name="instructions"
+                                            rows="3"
+                                            placeholder="Any additional directions for the delivery team?"
+                                        ></textarea>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- DELIVERY METHOD -->
+                            <div class="checkout-card">
+
+                                <div class="checkout-card-heading">
+
+                                    <span class="checkout-step">03</span>
+
+                                    <div>
+                                        <h2>Delivery Method</h2>
+
+                                        <p>
+                                            Select your preferred
+                                            delivery arrangement.
+                                        </p>
+                                    </div>
+
+                                </div>
+
+
+                                <div class="delivery-option-list">
+
+                                    <label class="delivery-option">
+
+                                        <input
+                                            type="radio"
+                                            name="delivery-method"
+                                            value="standard"
+                                            required
+                                        >
+
+                                        <span class="delivery-option-content">
+
+                                            <strong>Standard Delivery</strong>
+
+                                            <small>
+                                                Delivery fee and estimated
+                                                arrival will be confirmed
+                                                based on your location.
+                                            </small>
+
+                                        </span>
+
+                                    </label>
+
+
+                                    <label class="delivery-option">
+
+                                        <input
+                                            type="radio"
+                                            name="delivery-method"
+                                            value="express"
+                                        >
+
+                                        <span class="delivery-option-content">
+
+                                            <strong>Express Delivery</strong>
+
+                                            <small>
+                                                Subject to availability
+                                                in your location.
+                                            </small>
+
+                                        </span>
+
+                                    </label>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- PAYMENT METHOD -->
+                            <div class="checkout-card">
+
+                                <div class="checkout-card-heading">
+
+                                    <span class="checkout-step">04</span>
+
+                                    <div>
+                                        <h2>Payment Method</h2>
+
+                                        <p>
+                                            Choose how you would like
+                                            to pay for your order.
+                                        </p>
+                                    </div>
+
+                                </div>
+
+
+                                <div class="payment-option-list">
+
+
+                                    <label class="payment-option">
+
+                                        <input
+                                            type="radio"
+                                            name="payment-method"
+                                            value="wallet"
+                                            required
+                                        >
+
+                                        <span class="payment-option-content">
+
+                                            <strong>TMET Wallet</strong>
+
+                                            <small>
+                                                Pay using your available
+                                                TMET wallet balance.
+                                            </small>
+
+                                        </span>
+
+                                    </label>
+
+
+                                    <label class="payment-option">
+
+                                        <input
+                                            type="radio"
+                                            name="payment-method"
+                                            value="mobile-money"
+                                        >
+
+                                        <span class="payment-option-content">
+
+                                            <strong>Mobile Money</strong>
+
+                                            <small>
+                                                Pay using a supported
+                                                mobile money service.
+                                            </small>
+
+                                        </span>
+
+                                    </label>
+
+
+                                    <label class="payment-option">
+
+                                        <input
+                                            type="radio"
+                                            name="payment-method"
+                                            value="card"
+                                        >
+
+                                        <span class="payment-option-content">
+
+                                            <strong>Bank Card</strong>
+
+                                            <small>
+                                                Pay using a supported
+                                                debit or credit card.
+                                            </small>
+
+                                        </span>
+
+                                    </label>
+
+                                </div>
+
+
+                                <p class="payment-security-note">
+                                    Payment options will be activated
+                                    after secure payment integration.
+                                    Never enter your card details
+                                    on this page yet.
+                                </p>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <!-- ORDER SUMMARY -->
+                        <aside class="checkout-summary-card">
+
+                            <h2>Your Order</h2>
+
+                            <div id="checkout-order-items">
+
+                                <p class="checkout-empty-message">
+                                    Your selected products will
+                                    appear here.
+                                </p>
+
+                            </div>
+
+
+                            <div class="checkout-summary-divider"></div>
+
+
+                            <div class="checkout-summary-row">
+
+                                <span>Subtotal</span>
+
+                                <strong id="checkout-subtotal">
+                                    GHS 0.00
+                                </strong>
+
+                            </div>
+
+
+                            <div class="checkout-summary-row">
+
+                                <span>Delivery Fee</span>
+
+                                <strong id="checkout-delivery-fee">
+                                    To be confirmed
+                                </strong>
+
+                            </div>
+
+
+                            <div class="checkout-summary-divider"></div>
+
+
+                            <div class="checkout-summary-total">
+
+                                <span>Total</span>
+
+                                <strong id="checkout-total">
+                                    GHS 0.00
+                                </strong>
+
+                            </div>
+
+
+                            <button
+                                type="submit"
+                                class="primary-button checkout-place-order"
+                                disabled
+                            >
+                                Place Order
+                            </button>
+
+
+                            <p class="checkout-terms-note">
+                                By placing your order, you agree
+                                to the applicable shopping and
+                                delivery terms of TMET Technologies.
+                            </p>
+
+
+                            <a href="cart.html" class="back-to-cart">
+                                Return to Shopping Cart
+                            </a>
+
+                        </aside>
+
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </section>
+
+
+        <!-- CUSTOMER SUPPORT -->
+        <section class="shopping-support">
+
+            <div class="container">
+
+                <div class="support-content">
+
+                    <h2>Need Help Completing Your Order?</h2>
+
+                    <p>
+                        Contact our team if you need assistance
+                        with checkout or delivery information.
+                    </p>
+
+                    <a href="contact.html" class="primary-button">
+                        Contact Support
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+
+        <div class="container">
+
+            <div class="footer-content">
+
+                <div class="footer-brand">
+
+                    <a href="index.html" class="brand">
+                        <span class="brand-name">TMET</span>
+                        <span class="brand-tagline">TECHNOLOGIES</span>
+                    </a>
+
+                    <p>
+                        Your trusted destination for technology products,
+                        ICT equipment and accessories.
+                    </p>
+
+                </div>
+
+
+                <div class="footer-links">
+
+                    <h3>Quick Links</h3>
+
+                    <a href="index.html">Home</a>
+                    <a href="products.html">Products</a>
+                    <a href="categories.html">Categories</a>
+                    <a href="account.html">My Account</a>
+                    <a href="wallet.html">My Wallet</a>
+
+                </div>
+
+
+                <div class="footer-links">
+
+                    <h3>Customer Services</h3>
+
+                    <a href="cart.html">Shopping Cart</a>
+                    <a href="checkout.html">Checkout</a>
+                    <a href="contact.html">Contact Us</a>
+
+                </div>
+
+            </div>
+
+
+            <div class="footer-bottom">
+
+                <p>
+                    &copy; <span id="current-year"></span>
+                    TMET Technologies. All rights reserved.
+                </p>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <!-- FIXED BOTTOM NAVIGATION -->
+    <nav class="bottom-navigation" aria-label="Main navigation">
+
+        <a href="index.html" class="bottom-nav-item">
+            <span class="bottom-nav-icon">⌂</span>
+            <span>Home</span>
+        </a>
+
+        <a href="products.html" class="bottom-nav-item">
+            <span class="bottom-nav-icon">▦</span>
+            <span>Products</span>
+        </a>
+
+        <a href="categories.html" class="bottom-nav-item">
+            <span class="bottom-nav-icon">☷</span>
+            <span>Categories</span>
+        </a>
+
+        <a href="account.html" class="bottom-nav-item">
+            <span class="bottom-nav-icon">♙</span>
+            <span>Account</span>
+        </a>
+
+        <a href="wallet.html" class="bottom-nav-item">
+            <span class="bottom-nav-icon">▣</span>
+            <span>Wallet</span>
+        </a>
+
+    </nav>
+
+</body>
+</html>
